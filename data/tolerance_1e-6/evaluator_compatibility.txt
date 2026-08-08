@@ -1,0 +1,9 @@
+types: ndarray ndarray
+shapes: (26, 2) (26,)
+reported: 2.635998720892875
+sum-close: True
+min_wall_gap: -9.999995001230833e-07
+min_pair_gap: -9.99999500136961e-07
+official-style-valid: True
+aggregator-centers-shape: 26
+PASS

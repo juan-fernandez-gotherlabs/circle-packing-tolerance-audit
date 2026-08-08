@@ -1,0 +1,19 @@
+{
+  "policy": "all 78 root releases; later layers use highest-scoring distinct positive-multiplier events",
+  "requested_depth": 1,
+  "max_bases_after_each_layer": [
+    4,
+    6
+  ],
+  "layers_completed": 1,
+  "layers": [
+    {
+      "layer": 1,
+      "base_count": 1,
+      "transitions_attempted": 78,
+      "events_found": 78,
+      "unique_events": 78,
+      "local_maxima": 23
+    }
+  ]
+}

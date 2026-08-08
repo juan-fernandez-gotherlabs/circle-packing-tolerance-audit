@@ -1,0 +1,45 @@
+{
+  "contact_graph": {
+    "active_constraints": 78,
+    "active_pair_contacts": 58,
+    "active_wall_contacts": 20,
+    "jacobian_condition_number": 17.67172407379666,
+    "jacobian_rank": 78,
+    "kkt_multiplier_max": 0.42690037856124885,
+    "kkt_multiplier_min": 0.010606067613553006,
+    "kkt_stationarity_inf_norm": 4.440892098500626e-16,
+    "smallest_singular_value": 0.1917064166912061,
+    "variables": 78
+  },
+  "exactified_contact_graph_score": 2.6359830849176076,
+  "input_internal_score": 2.635983084917773,
+  "internal_metric": {
+    "improvement_over_input": 1.5556151922169192e-09,
+    "new_score": 2.635983086473388,
+    "tolerance": 1e-10,
+    "transform_t": 9.95e-11
+  },
+  "interpretation": {
+    "public_candidate_is_strict_geometric_packing": false,
+    "reason": "The public score uses the evaluator's absolute tolerance as an expanded-container allowance. It is a benchmark record, not a new exact geometric lower bound.",
+    "strict_reference_is_strict_geometric_packing": true
+  },
+  "local_search": {
+    "beat_exactified_base": false,
+    "best_repaired_score": 2.6359830849173025,
+    "method": "64 deterministic analytic-Jacobian SLSQP perturbation restarts around the incumbent, with exact-feasibility radius repair before comparison",
+    "restart_count": 64
+  },
+  "problem": "maximize sum of radii of 26 non-overlapping circles in unit square",
+  "public_benchmark": {
+    "float64_min_pair_gap": -9.99999500136961e-07,
+    "float64_min_wall_gap": -9.999995001230833e-07,
+    "improvement": 3.2991831488971e-11,
+    "new_score": 2.635998720892875,
+    "published_exact_bkr": 2.635998720859883,
+    "tolerance": 1e-06,
+    "transform_deficit_from_tolerance": 4.999999999079227e-13,
+    "transform_t": 9.999995e-07
+  },
+  "strict_reference_score": 2.6359830849173482
+}

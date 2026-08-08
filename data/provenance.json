@@ -1,0 +1,270 @@
+{
+  "generated_on": "2026-08-08",
+  "entries": [
+    {
+      "candidate": "Nuestro certificado exacto",
+      "audit_source_label": "Real result/Exacto/strict_high_precision.csv",
+      "license_checked_on": "2026-08-08",
+      "redistribution": "Included in data/ as the primary artifact.",
+      "upstream": "ChatGPT conversation 6a6b0f23-f53c-83eb-8a83-b3d4cdaa383d and recovered local artifacts",
+      "license": "MIT for repository code; certificate data released with this repository"
+    },
+    {
+      "candidate": "Nuestro candidato 1e-10",
+      "audit_source_label": "Real result/1e-10/coordinates_internal_1e10.csv",
+      "license_checked_on": "2026-08-08",
+      "redistribution": "Included in data/ as the primary artifact.",
+      "upstream": "ChatGPT conversation 6a6b0f23-f53c-83eb-8a83-b3d4cdaa383d and recovered local artifacts",
+      "license": "MIT for repository code; certificate data released with this repository"
+    },
+    {
+      "candidate": "Nuestro candidato 1e-6",
+      "audit_source_label": "Real result/1e-6/coordinates_public_record.csv",
+      "license_checked_on": "2026-08-08",
+      "redistribution": "Included in data/ as the primary artifact.",
+      "upstream": "ChatGPT conversation 6a6b0f23-f53c-83eb-8a83-b3d4cdaa383d and recovered local artifacts",
+      "license": "MIT for repository code; certificate data released with this repository"
+    },
+    {
+      "candidate": "EurekAgent público",
+      "audit_source_label": "THU-Team-Eureka/EurekAgent results/circle_packing/result.jsonl",
+      "license_checked_on": "2026-08-08",
+      "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
+      "upstream": "https://github.com/THU-Team-Eureka/EurekAgent/blob/38585790ff56e7993aec322e0179ded8b101d82c/results/circle_packing/result.jsonl",
+      "license": "AGPL-3.0 (GitHub repository license detection)"
+    },
+    {
+      "candidate": "EinsteinArena: AlphaEvolve",
+      "audit_source_label": "EinsteinArena API solution 542",
+      "license_checked_on": "2026-08-08",
+      "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
+      "upstream": "https://einsteinarena.com/problems/circle-packing",
+      "upstream_identifier": "542",
+      "license": "No per-solution redistribution license identified"
+    },
+    {
+      "candidate": "EinsteinArena: CHRONOS",
+      "audit_source_label": "EinsteinArena API solution 1618",
+      "license_checked_on": "2026-08-08",
+      "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
+      "upstream": "https://einsteinarena.com/problems/circle-packing",
+      "upstream_identifier": "1618",
+      "license": "No per-solution redistribution license identified"
+    },
+    {
+      "candidate": "EinsteinArena: EinsteinAgent6391",
+      "audit_source_label": "EinsteinArena API solution 730",
+      "license_checked_on": "2026-08-08",
+      "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
+      "upstream": "https://einsteinarena.com/problems/circle-packing",
+      "upstream_identifier": "730",
+      "license": "No per-solution redistribution license identified"
+    },
+    {
+      "candidate": "EinsteinArena: EinsteinAgent9827",
+      "audit_source_label": "EinsteinArena API solution 955",
+      "license_checked_on": "2026-08-08",
+      "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
+      "upstream": "https://einsteinarena.com/problems/circle-packing",
+      "upstream_identifier": "955",
+      "license": "No per-solution redistribution license identified"
+    },
+    {
+      "candidate": "EinsteinArena: Euclid",
+      "audit_source_label": "EinsteinArena API solution 648",
+      "license_checked_on": "2026-08-08",
+      "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
+      "upstream": "https://einsteinarena.com/problems/circle-packing",
+      "upstream_identifier": "648",
+      "license": "No per-solution redistribution license identified"
+    },
+    {
+      "candidate": "EinsteinArena: FeynmanAgent7481",
+      "audit_source_label": "EinsteinArena API solution 718",
+      "license_checked_on": "2026-08-08",
+      "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
+      "upstream": "https://einsteinarena.com/problems/circle-packing",
+      "upstream_identifier": "718",
+      "license": "No per-solution redistribution license identified"
+    },
+    {
+      "candidate": "EinsteinArena: GaussAgent3615",
+      "audit_source_label": "EinsteinArena API solution 941",
+      "license_checked_on": "2026-08-08",
+      "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
+      "upstream": "https://einsteinarena.com/problems/circle-packing",
+      "upstream_identifier": "941",
+      "license": "No per-solution redistribution license identified"
+    },
+    {
+      "candidate": "EinsteinArena: GradientExpertAgent2927",
+      "audit_source_label": "EinsteinArena API solution 766",
+      "license_checked_on": "2026-08-08",
+      "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
+      "upstream": "https://einsteinarena.com/problems/circle-packing",
+      "upstream_identifier": "766",
+      "license": "No per-solution redistribution license identified"
+    },
+    {
+      "candidate": "EinsteinArena: Hilbert",
+      "audit_source_label": "EinsteinArena API solution 660",
+      "license_checked_on": "2026-08-08",
+      "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
+      "upstream": "https://einsteinarena.com/problems/circle-packing",
+      "upstream_identifier": "660",
+      "license": "No per-solution redistribution license identified"
+    },
+    {
+      "candidate": "EinsteinArena: JSAgent",
+      "audit_source_label": "EinsteinArena API solution 1624",
+      "license_checked_on": "2026-08-08",
+      "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
+      "upstream": "https://einsteinarena.com/problems/circle-packing",
+      "upstream_identifier": "1624",
+      "license": "No per-solution redistribution license identified"
+    },
+    {
+      "candidate": "EinsteinArena: PRIDE-agent",
+      "audit_source_label": "EinsteinArena API solution 2327",
+      "license_checked_on": "2026-08-08",
+      "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
+      "upstream": "https://einsteinarena.com/problems/circle-packing",
+      "upstream_identifier": "2327",
+      "license": "No per-solution redistribution license identified"
+    },
+    {
+      "candidate": "EinsteinArena: PerelmanAgent5442",
+      "audit_source_label": "EinsteinArena API solution 862",
+      "license_checked_on": "2026-08-08",
+      "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
+      "upstream": "https://einsteinarena.com/problems/circle-packing",
+      "upstream_identifier": "862",
+      "license": "No per-solution redistribution license identified"
+    },
+    {
+      "candidate": "EinsteinArena: TopologyAgent7556",
+      "audit_source_label": "EinsteinArena API solution 779",
+      "license_checked_on": "2026-08-08",
+      "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
+      "upstream": "https://einsteinarena.com/problems/circle-packing",
+      "upstream_identifier": "779",
+      "license": "No per-solution redistribution license identified"
+    },
+    {
+      "candidate": "EinsteinArena: TuringAgent3478",
+      "audit_source_label": "EinsteinArena API solution 856",
+      "license_checked_on": "2026-08-08",
+      "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
+      "upstream": "https://einsteinarena.com/problems/circle-packing",
+      "upstream_identifier": "856",
+      "license": "No per-solution redistribution license identified"
+    },
+    {
+      "candidate": "EinsteinArena: TuringAgent9811",
+      "audit_source_label": "EinsteinArena API solution 743",
+      "license_checked_on": "2026-08-08",
+      "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
+      "upstream": "https://einsteinarena.com/problems/circle-packing",
+      "upstream_identifier": "743",
+      "license": "No per-solution redistribution license identified"
+    },
+    {
+      "candidate": "EinsteinArena: alpha_omega_agents",
+      "audit_source_label": "EinsteinArena API solution 1688",
+      "license_checked_on": "2026-08-08",
+      "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
+      "upstream": "https://einsteinarena.com/problems/circle-packing",
+      "upstream_identifier": "1688",
+      "license": "No per-solution redistribution license identified"
+    },
+    {
+      "candidate": "EinsteinArena: pagi",
+      "audit_source_label": "EinsteinArena API solution 2426",
+      "license_checked_on": "2026-08-08",
+      "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
+      "upstream": "https://einsteinarena.com/problems/circle-packing",
+      "upstream_identifier": "2426",
+      "license": "No per-solution redistribution license identified"
+    },
+    {
+      "candidate": "Packomania csqv26 (ASCII publicado)",
+      "audit_source_label": "packomania.com/csqv/txt/csqv26.txt",
+      "license_checked_on": "2026-08-08",
+      "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
+      "upstream": "https://www.packomania.com/csqv/txt/csqv26.txt",
+      "license": "No explicit redistribution license identified"
+    },
+    {
+      "candidate": "Tencent Hyra n=26",
+      "audit_source_label": "Tencent-Hunyuan/Hyra-results cirRsqu_n26.json",
+      "license_checked_on": "2026-08-08",
+      "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
+      "upstream": "https://github.com/Tencent-Hunyuan/Hyra-results/blob/main/AI4Science/packing_records/records/cirRsqu_n26.json",
+      "license": "Apache-2.0 for Tencent-authored material; upstream LICENSE contains third-party qualifications"
+    },
+    {
+      "candidate": "ThetaEvolve data.json: AlphaEvolve",
+      "audit_source_label": "ypwang61/ThetaEvolve Results/CirclePacking/data.json",
+      "license_checked_on": "2026-08-08",
+      "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
+      "upstream": "https://github.com/ypwang61/ThetaEvolve/blob/main/Results/CirclePacking/data.json",
+      "license": "Apache-2.0 (GitHub repository license detection)"
+    },
+    {
+      "candidate": "ThetaEvolve data.json: 8B-w_RL@65",
+      "audit_source_label": "ypwang61/ThetaEvolve Results/CirclePacking/data.json",
+      "license_checked_on": "2026-08-08",
+      "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
+      "upstream": "https://github.com/ypwang61/ThetaEvolve/blob/main/Results/CirclePacking/data.json",
+      "license": "Apache-2.0 (GitHub repository license detection)"
+    },
+    {
+      "candidate": "ThetaEvolve data.json: 8B-w_RL@65-Formal",
+      "audit_source_label": "ypwang61/ThetaEvolve Results/CirclePacking/data.json",
+      "license_checked_on": "2026-08-08",
+      "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
+      "upstream": "https://github.com/ypwang61/ThetaEvolve/blob/main/Results/CirclePacking/data.json",
+      "license": "Apache-2.0 (GitHub repository license detection)"
+    },
+    {
+      "candidate": "ThetaEvolve data.json: ShinkaEvolve",
+      "audit_source_label": "ypwang61/ThetaEvolve Results/CirclePacking/data.json",
+      "license_checked_on": "2026-08-08",
+      "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
+      "upstream": "https://github.com/ypwang61/ThetaEvolve/blob/main/Results/CirclePacking/data.json",
+      "license": "Apache-2.0 (GitHub repository license detection)"
+    },
+    {
+      "candidate": "Station SOTA",
+      "audit_source_label": "dualverse-ai/station example/research_circle_n26/station_sota.py",
+      "license_checked_on": "2026-08-08",
+      "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
+      "upstream": "https://github.com/dualverse-ai/station/blob/main/example/research_circle_n26/station_sota.py",
+      "license": "Apache-2.0 (GitHub repository license detection)"
+    },
+    {
+      "candidate": "AlphaZ-CORAL best_program",
+      "audit_source_label": "Kurorz2004/alphaz-coral task1/result/best_program.py",
+      "license_checked_on": "2026-08-08",
+      "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
+      "upstream": "https://github.com/Kurorz2004/alphaz-coral/blob/main/task1/result/best_program.py",
+      "license": "No repository license detected"
+    },
+    {
+      "candidate": "Jason Liang csqv26.pck",
+      "audit_source_label": "jasonzliang/circle-packing-sota sota/ours/pck/csqv26.pck",
+      "license_checked_on": "2026-08-08",
+      "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
+      "upstream": "https://github.com/jasonzliang/circle-packing-sota/blob/main/sota/ours/pck/csqv26.pck",
+      "license": "No repository license detected"
+    },
+    {
+      "candidate": "Numaro reported n=26 claim",
+      "audit_source_label": "NUMARO-2026-004",
+      "upstream": "https://numaro.tech/research/circle-packing-unit-square-2026/",
+      "license": "No witness or explicit data redistribution license identified",
+      "license_checked_on": "2026-08-08",
+      "redistribution": "Not included and not ranked because the n=26 witness was unavailable."
+    }
+  ]
+}

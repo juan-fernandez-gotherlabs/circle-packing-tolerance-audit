@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this artifact, please cite it using the metadata below."
+title: "Circle packing n=26: tolerance audit and exact certificate"
+version: 1.0.0
+date-released: 2026-08-08
+type: software
+authors:
+  - family-names: "Fernández Morales"
+    given-names: "Juan José"
+repository-code: "https://github.com/juan-fernandez-gotherlabs/circle-packing-tolerance-audit"
+keywords:
+  - circle packing
+  - exact certificate
+  - numerical tolerance
+  - computational geometry
+  - reproducibility
+license: MIT
+abstract: >-
+  Reproducible artifacts for three numerical contracts of the n=26
+  variable-radius circle-packing problem, including an exact-rational
+  finite-decimal certificate, independent verification, a public-corpus audit,
+  and contact-graph reconstruction.
