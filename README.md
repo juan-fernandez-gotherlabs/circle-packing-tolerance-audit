@@ -72,9 +72,9 @@ The missing historical `contact_flip.py` is replaced by the self-contained
 contacts and all 23 historical local-maximum classifications. It is a
 reconstruction, not a claim of byte-identical recovery of the former sandbox.
 
-## Full evidence archive (release candidate)
+## Full evidence archive
 
-The planned immutable `v1.1.0` release will attach
+The `v1.1.0` release attaches
 `circle-packing-full-evidence-v1.1.0.zip` and its SHA-256 checksum. The archive
 preserves the original model explanations and programs, historical logs, and
 all 78 regenerated seeds and traces without placing 180 archival files on the
