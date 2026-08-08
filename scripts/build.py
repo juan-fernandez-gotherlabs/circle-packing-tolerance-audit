@@ -211,6 +211,8 @@ def generate_manifest() -> Path:
         for dirname in HASHED_DIRS
         for path in (ROOT / dirname).rglob("*")
         if path.is_file()
+        and "__pycache__" not in path.parts
+        and path.suffix not in {".pyc", ".pyo"}
     }
     paths.update(ROOT / name for name in HASHED_FILES)
     target.write_text(

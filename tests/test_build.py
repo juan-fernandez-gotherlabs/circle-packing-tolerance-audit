@@ -59,6 +59,11 @@ class BuildTests(unittest.TestCase):
             "2359ee29d5de8747a124a5439779b8d4c553cce0",
         )
 
+    def test_manifest_excludes_generated_bytecode(self):
+        manifest = build.generate_manifest().read_text()
+        self.assertNotIn("__pycache__", manifest)
+        self.assertNotIn(".pyc", manifest)
+
 
 if __name__ == "__main__":
     unittest.main()
