@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Rebuild the high-precision contact root and conservative certificate."""
+"""Derive a nearby strict certificate from the published exact witness.
+
+This is a sensitivity/reconstruction diagnostic, not an independent recovery
+of ``data/certificates/exact.csv``.  The published witness supplies both the
+seed and the detected contact graph, so byte or decimal identity is neither
+claimed nor expected.
+"""
 
 from __future__ import annotations
 
@@ -28,7 +34,7 @@ def fixed(value: mp.mpf, places: int) -> str:
     return f"{sign}{int(integer)}.{int(fraction):0{places}d}"
 
 
-def build(output_dir: Path, dps: int = 120, places: int = 90) -> dict:
+def derive(output_dir: Path, dps: int = 120, places: int = 90) -> dict:
     mp.mp.dps = dps
     output_dir.mkdir(parents=True, exist_ok=True)
     float_root, keys = cg.default_state()
@@ -101,6 +107,10 @@ def build(output_dir: Path, dps: int = 120, places: int = 90) -> dict:
             writer.writerow([i, fixed(strict[3 * i], places), fixed(strict[3 * i + 1], places), fixed(strict[3 * i + 2], places)])
 
     report = {
+        "operation": "derive_nearby_strict_certificate",
+        "source_certificate": "data/certificates/exact.csv",
+        "independent_reconstruction": False,
+        "byte_identical_to_source_claimed": False,
         "mp_dps": dps,
         "newton_history": history,
         "contact_graph_score": mp.nstr(score, 115),
@@ -116,8 +126,10 @@ def build(output_dir: Path, dps: int = 120, places: int = 90) -> dict:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--output-dir", type=Path, default=cg.ROOT / "results/rebuilt_exact")
+    parser = argparse.ArgumentParser(
+        description="Derive another nearby strict witness from the published certificate."
+    )
+    parser.add_argument("--output-dir", type=Path, default=cg.ROOT / "results/nearby_strict")
     parser.add_argument("--dps", type=int, default=120)
     args = parser.parse_args()
-    print(json.dumps(build(args.output_dir, args.dps), indent=2))
+    print(json.dumps(derive(args.output_dir, args.dps), indent=2))
