@@ -1,23 +1,21 @@
 # Circle packing n=26: tolerance audit and exact certificate
 
-This repository separates three different numerical contracts for the problem
-of placing 26 variable-radius circles in the unit square while maximizing the
-sum of their radii.
+Reproducible certificates for placing 26 variable-radius circles in the unit
+square while maximizing the sum of their radii.
 
-| Contract | Recomputed score | Meaning |
+| Contract | Recomputed score | Interpretation |
 | --- | ---: | --- |
-| tolerance `1e-6` | `2.63599872089287514` | Benchmark result under the public EurekAgent-style contract |
-| tolerance `1e-10` | `2.63598308647338795` | Result under the internal `1e-10` contract |
-| tolerance `0` | `2.635983084917607783186569485443481730396676798274474857745771129860703849334…` | Finite-decimal certificate verified as exact rationals |
+| `1e-6` | `2.63599872089287514` | Public benchmark tolerance |
+| `1e-10` | `2.63598308647338795` | Stricter numerical tolerance |
+| `0` | `2.635983084917607783186569485443481730396676798274474857745771129860703849334…` | Strict finite-decimal rational witness |
 
-The three numbers are **not interchangeable**.  The first two consume the
-evaluator's tolerance and fail when checked at tolerance zero.  The third is a
-strictly feasible lower-bound witness, but it is **not a proof of global
-optimality** and is not claimed as a new numerical Packomania record.
+These scores are not interchangeable. The first two certificates consume their
+stated tolerances and fail at tolerance zero. The strict certificate proves a
+feasible lower bound, not global optimality and not a new Packomania record.
 
 ![Exact packing and contact graph](figures/exact_packing_contact_graph.svg)
 
-## Reproduce the artifact
+## Verify
 
 Python 3.12 is the reference environment.
 
@@ -28,92 +26,68 @@ python -m pip install --requirement requirements.lock
 ./verify_all.sh
 ```
 
-The command verifies all 1,287 inequalities for the three primary contracts
-using exact rational decisions, reruns the automated tests, regenerates the
-audit tables, regenerates the contact-graph visualization, and updates the
-SHA-256 manifest.
+The command checks all 1,287 inequalities—429 per certificate—with exact
+rational pass/fail decisions, runs the tests, regenerates the audit table and
+SVG, and updates `SHA256SUMS`. CI repeats the same command on Linux.
 
-The core certificate verifier itself uses only Python's standard library.
-NumPy and SciPy are required for the independently reconstructed contact solver
-and continuation code.
+The primary review path is intentionally small:
 
-## Rebuild the strict certificate
+- `data/certificates/`: the three tolerance-separated witnesses;
+- `scripts/verifier.py`: independent standard-library rational verifier;
+- `results/verification.json`: machine-readable feasibility margins;
+- `data/leaderboard_audit.json` and `results/audit_tables.md`: frozen,
+  tolerance-matched public-corpus audit;
+- `docs/METHODS.md`: method, exactness, provenance, limitations, and AI
+  disclosure.
 
-```bash
-python scripts/refine_exact.py --output-dir results/rebuilt_exact
-```
+## Reconstruct the numerical work
 
-This starts from the published finite-decimal witness, reconstructs its 78
-active contacts, solves the contact system, applies 120-digit Newton refinement,
-rounds to 90 decimal places, and shrinks every radius conservatively before
-writing a new certificate.
-
-## Regenerate contact-release seeds
-
-The original ChatGPT response attached the historical summaries and logs but
-did not attach its temporary `contact_flip.py` module or any `.npz` seeds.  This
-repository replaces that hidden dependency with `scripts/contact_graph.py` and
-regenerates seeds from the certificate:
+Rebuild the conservative exact certificate:
 
 ```bash
-# all 78 one-contact releases
-python scripts/run_search.py --depth 1
-
-# evidence-aligned layered policy: 78 + 4×78 + 6×78 transitions
-python scripts/run_search.py --depth 3 --max-bases 4,6
+python scripts/refine_exact.py --output-dir work/rebuilt_exact
 ```
 
-The new run is reproducible from published files.  It is a clean
-reimplementation, not a claim of bit-for-bit identity with the unavailable
-temporary sandbox state from the historical run.
+Regenerate the 78 first-layer contact releases and deterministic `.npz` seeds:
 
-The repository includes the regenerated root and all 78 first-layer `.npz`
-seeds, their traces, and the layer summary under
-`results/search_reproduction/`. Seed archives use a fixed ZIP timestamp, so a
-clean regeneration is byte-reproducible rather than merely numerically
-equivalent.
+```bash
+python scripts/search.py --depth 1
+```
 
-A complete clean rerun of layer 1 regenerated all 78 events and all 23
-historical local-maximum classifications. There were no classification
-disagreements; the largest endpoint-score difference was `3.32e-11`. The
-machine-readable comparison is in `results/search_layer1_validation.json`.
+The missing historical `contact_flip.py` is replaced by the self-contained
+`scripts/contact_graph.py`. The clean implementation reproduced all 78 released
+contacts and all 23 historical local-maximum classifications. It is a
+reconstruction, not a claim of byte-identical recovery of the former sandbox.
 
-The historical prose said “390 additional” second-layer transitions and called
-the third layer partial. The attached logs are more precise: they contain 312
-second-layer transitions (`4×78`) and all 468 planned third-layer transitions.
-Thus 390 is the cumulative total through layers 1 and 2 (`78+312`), not 390
-additional second-layer traces. `results/historical_search_counts.json` records
-the line-by-line audit that corrects the earlier narrative.
+## Full evidence archive
 
-## Repository map
+The `v1.1.0` release attaches
+`circle-packing-full-evidence-v1.1.0.zip` and its SHA-256 checksum. That archive
+preserves the original model explanations and programs, historical logs, and
+all 78 regenerated seeds and traces without placing 180 archival files on the
+reviewer-facing branch. It contains a per-file `MANIFEST.json` and can be
+rebuilt from the immutable `v1.0.0` tag:
 
-- `data/tolerance_1e-6/`, `data/tolerance_1e-10/`, `data/exact/`: the three regimes, certificates, programs, and original model explanations.
-- `scripts/verifier.py`: independent exact-rational verifier.
-- `scripts/contact_graph.py`: replacement for the missing historical module.
-- `scripts/refine_exact.py`: high-precision reconstruction and conservative exactification.
-- `scripts/run_search.py`: deterministic contact-release search and seed generation.
-- `data/audit/`: frozen public-artifact audit and its Spanish report.
-- `data/provenance.json`: per-candidate source and license status.
-- `results/audit_tables.md`: generated rankings under each separate tolerance.
-- `docs/`: definitions, method, provenance, disclosure, and limitations.
+```bash
+python scripts/build.py \
+  --evidence-archive dist/circle-packing-full-evidence-v1.1.0.zip
+```
 
-## Claims that this repository supports
+## Supported claims
 
-1. Each of the three included certificates passes its stated numerical contract.
-2. The finite decimals in `data/exact/certificate.csv`, interpreted as exact rational numbers, satisfy all 429 geometric inequalities at tolerance zero.
-3. In the frozen public corpus dated 2026-08-06, each primary certificate ranks first when compared only under its own tolerance.
-4. The exact certificate reconstructs a 78-contact, full-rank stationary configuration with 58 pair contacts and 20 wall contacts.
+1. Each certificate passes its explicitly named numerical contract.
+2. The finite decimals in `data/certificates/exact.csv`, interpreted as exact
+   rationals, satisfy all 429 geometric inequalities at tolerance zero.
+3. Each primary certificate ranks first inside the frozen public corpus dated
+   2026-08-06 when compared only under the same tolerance.
+4. The strict witness reconstructs a full-rank 78-contact stationary
+   configuration with 58 pair and 20 wall contacts.
 
-The ranking statement is corpus-bounded.  It excludes private results and
-published scores for which no complete witness was available.
-
-Read [exactness](docs/EXACTNESS.md), [methodology](docs/METHODOLOGY.md),
-[provenance](docs/PROVENANCE.md), and [limitations](docs/LIMITATIONS.md) before
-citing the numerical claims.
+Rankings exclude private results and public claims without a complete witness.
+Read `docs/METHODS.md` before citing these claims.
 
 ## Citation and license
 
-Citation metadata is in `CITATION.cff`.  Repository-authored code is released
-under the MIT License.  External artifacts are not relicensed: only derived
-audit metrics are retained when an upstream redistribution license was absent
-or unclear.  See `data/provenance.json`.
+Citation metadata is in `CITATION.cff`. Repository-authored code is MIT
+licensed. External artifacts are not relicensed; `data/provenance.json` records
+their sources and redistribution status.

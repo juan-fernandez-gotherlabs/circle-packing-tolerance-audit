@@ -2,7 +2,7 @@
 
 Frozen audit date: **2026-08-06**. Candidates: **30**.
 
-> A rank here means rank inside the frozen, publicly auditable corpus. It is not a proof of global optimality and excludes claims without a downloadable witness.
+> Rankings are limited to the frozen public corpus and exclude claims without a downloadable witness.
 
 ## Ranking at tolerance `0`
 

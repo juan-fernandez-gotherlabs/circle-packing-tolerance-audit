@@ -25,7 +25,7 @@ class ExactVerifierTests(unittest.TestCase):
         self.assertFalse(report["relaxed_certificates_rechecked_at_zero"]["1e-10"]["valid"])
 
     def test_exact_score_is_finite_decimal_rational(self):
-        circles = verifier.load_certificate(ROOT / "data/exact/certificate.csv")
+        circles = verifier.load_certificate(ROOT / "data/certificates/exact.csv")
         score = sum((radius for _, _, radius in circles), Fraction())
         self.assertEqual(
             Decimal(verifier.decimal_string(score)),
