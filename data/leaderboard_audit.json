@@ -1236,17 +1236,6 @@
         "constraints_checked": 429
       },
       {
-        "name": "Nuestro certificado exacto",
-        "source": "data/certificates/exact.csv",
-        "valid": true,
-        "score": "2.63598308491760778318656948544348173039667679827447485774577112986070384933447233967679974",
-        "min_wall_gap_zero": "1.0000000000000015957e-75",
-        "min_pair_squared_gap_zero": "6.46288911712774754394868936459332965615250131264171508090871526511348342624541251582871944e-76",
-        "min_wall_margin_at_tolerance": "1.000000000000000000000000000000000000000000000000000000000000000010000000000000015957e-10",
-        "min_pair_margin_at_tolerance": "1.00000000000000000000000000000000000000000000000000000000000000002000000000000001595655693e-10",
-        "constraints_checked": 429
-      },
-      {
         "name": "EinsteinArena: AlphaEvolve",
         "source": "EinsteinArena API solution 542",
         "valid": true,
@@ -1513,17 +1502,6 @@
         "constraints_checked": 429
       },
       {
-        "name": "Nuestro candidato 1e-10",
-        "source": "data/certificates/tolerance_1e-10.csv",
-        "valid": true,
-        "score": "2.63598308647338795",
-        "min_wall_gap_zero": "-9.950014e-11",
-        "min_pair_squared_gap_zero": "-5.06733519051356491665224e-11",
-        "min_wall_margin_at_tolerance": "9.9990049986e-7",
-        "min_pair_margin_at_tolerance": "9.99900499843711858989519420183372440877665267656184827135808491720775571138487612820012119e-7",
-        "constraints_checked": 429
-      },
-      {
         "name": "Packomania csqv26 (ASCII publicado)",
         "source": "packomania.com/csqv/txt/csqv26.txt",
         "valid": true,
@@ -1543,17 +1521,6 @@
         "min_pair_squared_gap_zero": "-2.07335305413922037871053076809400980344477647761386690343499150657180507550947368144989014e-15",
         "min_wall_margin_at_tolerance": "0.000001",
         "min_pair_margin_at_tolerance": "9.99999993883898495827745562058038317214894785799450717986172701904424353837356547265256363e-7",
-        "constraints_checked": 429
-      },
-      {
-        "name": "Nuestro certificado exacto",
-        "source": "data/certificates/exact.csv",
-        "valid": true,
-        "score": "2.63598308491760778318656948544348173039667679827447485774577112986070384933447233967679974",
-        "min_wall_gap_zero": "1.0000000000000015957e-75",
-        "min_pair_squared_gap_zero": "6.46288911712774754394868936459332965615250131264171508090871526511348342624541251582871944e-76",
-        "min_wall_margin_at_tolerance": "0.0000010000000000000000000000000000000000000000000000000000000000000000000010000000000000015957",
-        "min_pair_margin_at_tolerance": "0.00000100000000000000000000000000000000000000000000000000000000000000000000200000000000000159566",
         "constraints_checked": 429
       },
       {

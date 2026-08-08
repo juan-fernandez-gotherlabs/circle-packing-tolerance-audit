@@ -7,7 +7,11 @@ square while maximizing the sum of their radii.
 | --- | ---: | --- |
 | `1e-6` | `2.63599872089287514` | Exact-rational linear tolerance contract |
 | `1e-10` | `2.63598308647338795` | Stricter numerical tolerance |
-| `0` | `2.635983084917607783186569485443481730396676798274474857745771129860703849334…` | Strict finite-decimal rational witness |
+| `0` | `2.63598308491760778…` | Strict finite-decimal rational witness |
+
+The unabbreviated exact score is preserved in
+[`results/verification.json`](results/verification.json); shortening its display
+here keeps the interpretation column readable on ordinary screens.
 
 These scores are not interchangeable. The first two certificates consume their
 stated tolerances and fail at tolerance zero. The strict certificate proves a
@@ -17,17 +21,21 @@ feasible lower bound, not global optimality and not a new Packomania record.
 
 ## Verify
 
-Python 3.12 is the reference environment.
+CPython 3.12.4 on Ubuntu x86-64 is the reference environment for the
+NumPy/SciPy diagnostics. Exact-rational verification uses only the Python
+standard library and is platform-independent.
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-python -m pip install --requirement requirements.lock
+python -m pip install --require-hashes --requirement requirements.lock
 ./verify_all.sh
 ```
 
-The command checks 1,287 geometric inequalities—429 per certificate—plus 78
-radius-positivity conditions, for 1,365 exact-rational decisions in total. It
+The three primary contracts require 1,365 exact-rational decisions: 429
+geometric inequalities and 26 radius-positivity conditions per certificate.
+The two relaxed certificates are then rechecked at tolerance zero, adding 910
+separation decisions, for 2,275 condition evaluations in total. The command
 runs the tests, regenerates the audit table and SVG, and updates the repository
 artifact manifest `SHA256SUMS`. CI repeats the same command on Linux.
 

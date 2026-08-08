@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import csv
 import json
 import os
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -16,6 +18,16 @@ import build
 
 
 class BuildTests(unittest.TestCase):
+    def test_machine_readable_rankings_have_one_matching_author_certificate(self):
+        audit = json.loads((ROOT / "data/leaderboard_audit.json").read_text())
+        for tolerance, expected in build.PRIMARY_CANDIDATES.items():
+            author_rows = [
+                row["name"]
+                for row in audit["rankings"][tolerance]
+                if row["name"] in build.AUTHOR_CANDIDATES
+            ]
+            self.assertEqual(author_rows, [expected])
+
     def test_table_contains_all_contracts(self):
         text = build.generate_table().read_text()
         for tolerance in ("0", "1e-10", "1e-6"):
@@ -23,6 +35,34 @@ class BuildTests(unittest.TestCase):
         self.assertIn("not an end-to-end reproducible leaderboard", text)
         self.assertNotIn("| Nuestro certificado exacto |", text.split("## Snapshot at rational tolerance `1e-10`")[1].split("## Snapshot at rational tolerance `1e-6`")[0])
         self.assertNotIn("| Nuestro candidato 1e-10 |", text.split("## Snapshot at rational tolerance `1e-6`")[1].split("## Stored validity matrix")[0])
+
+    def test_certificate_csv_files_share_one_schema(self):
+        for path in sorted((ROOT / "data/certificates").glob("*.csv")):
+            with path.open(newline="", encoding="utf-8") as handle:
+                reader = csv.DictReader(handle)
+                self.assertEqual(reader.fieldnames, ["circle", "x", "y", "radius"])
+                self.assertEqual([int(row["circle"]) for row in reader], list(range(26)))
+
+    def test_manifest_exactly_covers_tracked_files(self):
+        manifest = build.generate_manifest().read_text().splitlines()
+        actual = {line.split("  ", 1)[1] for line in manifest}
+        tracked = set(
+            subprocess.check_output(
+                ["git", "ls-files"], cwd=ROOT, text=True
+            ).splitlines()
+        )
+        self.assertEqual(actual, tracked - {"SHA256SUMS"})
+        self.assertIn(".gitignore", actual)
+
+    def test_manifest_rejects_untracked_files(self):
+        probe = ROOT / "reviewer-untracked.tmp"
+        self.assertFalse(probe.exists())
+        try:
+            probe.write_text("not part of the Git artifact\n", encoding="utf-8")
+            with self.assertRaisesRegex(RuntimeError, "untracked files"):
+                build.generate_manifest()
+        finally:
+            probe.unlink(missing_ok=True)
 
     def test_visualization_has_expected_graph(self):
         text = build.generate_visualization().read_text()
@@ -58,11 +98,6 @@ class BuildTests(unittest.TestCase):
             build.EVIDENCE_SOURCE_COMMIT,
             "2359ee29d5de8747a124a5439779b8d4c553cce0",
         )
-
-    def test_manifest_excludes_generated_bytecode(self):
-        manifest = build.generate_manifest().read_text()
-        self.assertNotIn("__pycache__", manifest)
-        self.assertNotIn(".pyc", manifest)
 
 
 if __name__ == "__main__":

@@ -19,8 +19,6 @@ from xml.sax.saxutils import escape
 ROOT = Path(__file__).resolve().parents[1]
 AUDIT = ROOT / "data/leaderboard_audit.json"
 EXACT = ROOT / "data/certificates/exact.csv"
-HASHED_DIRS = (".github", "data", "docs", "figures", "results", "scripts", "tests")
-HASHED_FILES = ("CITATION.cff", "LICENSE", "README.md", "requirements.lock", "verify_all.sh")
 PRIMARY_CANDIDATES = {
     "0": "Nuestro certificado exacto",
     "1e-10": "Nuestro candidato 1e-10",
@@ -63,12 +61,28 @@ def digest_file(path: Path) -> str:
     return value.hexdigest()
 
 
-def generate_table() -> Path:
+def load_audit() -> dict:
     audit = json.loads(AUDIT.read_text(encoding="utf-8"))
     if audit.get("snapshot_status") != "historical_observational_snapshot":
         raise AssertionError("leaderboard data must be labelled as an observational snapshot")
     if audit.get("end_to_end_reproducible") is not False:
         raise AssertionError("leaderboard snapshot must disclose that it is not end-to-end reproducible")
+    for tolerance, expected in PRIMARY_CANDIDATES.items():
+        author_rows = [
+            row["name"]
+            for row in audit["rankings"][tolerance]
+            if row["name"] in AUTHOR_CANDIDATES
+        ]
+        if author_rows != [expected]:
+            raise AssertionError(
+                f"ranking {tolerance} must contain only {expected!r} from the author; "
+                f"found {author_rows!r}"
+            )
+    return audit
+
+
+def generate_table() -> Path:
+    audit = load_audit()
     lines = [
         "# Historical comparison snapshot",
         "",
@@ -83,12 +97,7 @@ def generate_table() -> Path:
         "",
     ]
     for tolerance in ("0", "1e-10", "1e-6"):
-        rows = [
-            row
-            for row in audit["rankings"][tolerance]
-            if row["name"] not in AUTHOR_CANDIDATES
-            or row["name"] == PRIMARY_CANDIDATES[tolerance]
-        ]
+        rows = audit["rankings"][tolerance]
         lines.extend(
             [
                 f"## Snapshot at rational tolerance `{tolerance}`",
@@ -206,19 +215,32 @@ def generate_visualization() -> Path:
 
 def generate_manifest() -> Path:
     target = ROOT / "SHA256SUMS"
-    paths = {
-        path
-        for dirname in HASHED_DIRS
-        for path in (ROOT / dirname).rglob("*")
-        if path.is_file()
-        and "__pycache__" not in path.parts
-        and path.suffix not in {".pyc", ".pyo"}
-    }
-    paths.update(ROOT / name for name in HASHED_FILES)
+    untracked = subprocess.check_output(
+        ["git", "ls-files", "--others", "--exclude-standard", "-z"], cwd=ROOT
+    ).split(b"\0")
+    unexpected = sorted(path.decode("utf-8") for path in untracked if path)
+    if unexpected:
+        raise RuntimeError(
+            "refusing to generate SHA256SUMS with untracked files: "
+            + ", ".join(unexpected)
+        )
+
+    tracked = subprocess.check_output(["git", "ls-files", "-z"], cwd=ROOT).split(b"\0")
+    relative_paths = sorted(
+        Path(path.decode("utf-8"))
+        for path in tracked
+        if path and path.decode("utf-8") != target.name
+    )
+    missing = [str(path) for path in relative_paths if not (ROOT / path).is_file()]
+    if missing:
+        raise RuntimeError(
+            "refusing to generate SHA256SUMS with missing tracked files: "
+            + ", ".join(missing)
+        )
     target.write_text(
         "".join(
-            f"{digest_file(path)}  {path.relative_to(ROOT)}\n"
-            for path in sorted(paths)
+            f"{digest_file(ROOT / path)}  {path}\n"
+            for path in relative_paths
         ),
         encoding="utf-8",
     )
