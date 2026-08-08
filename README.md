@@ -1,5 +1,7 @@
 # Circle packing n=26: tolerance audit and exact certificate
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21853178.svg)](https://doi.org/10.5281/zenodo.21853178)
+
 Reproducible certificates for placing 26 variable-radius circles in the unit
 square while maximizing the sum of their radii.
 
@@ -109,6 +111,8 @@ bit-for-bit equivalent to the public evaluator's binary64 implementation. Read
 
 ## Citation and license
 
+Version `v1.1.0` is archived at Zenodo under
+[DOI `10.5281/zenodo.21853178`](https://doi.org/10.5281/zenodo.21853178).
 Citation metadata is in `CITATION.cff`. Repository-authored code is MIT
-licensed. External artifacts are not relicensed; `data/provenance.json` records
-their sources and redistribution status.
+licensed. External artifacts are not relicensed; `data/provenance.json`
+records their sources and redistribution status.
