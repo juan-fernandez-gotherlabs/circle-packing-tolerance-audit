@@ -126,16 +126,16 @@ def verify_certificate(path: Path, tolerance: Fraction) -> dict:
 def verify_repository(write: bool = True) -> dict:
     cases = {
         "1e-6": verify_certificate(
-            ROOT / "data/tolerance_1e-6/certificate.csv", Fraction(1, 10**6)
+            ROOT / "data/certificates/tolerance_1e-6.csv", Fraction(1, 10**6)
         ),
         "1e-10": verify_certificate(
-            ROOT / "data/tolerance_1e-10/certificate.csv", Fraction(1, 10**10)
+            ROOT / "data/certificates/tolerance_1e-10.csv", Fraction(1, 10**10)
         ),
-        "exact": verify_certificate(ROOT / "data/exact/certificate.csv", Fraction(0)),
+        "exact": verify_certificate(ROOT / "data/certificates/exact.csv", Fraction(0)),
     }
     zero_checks = {
         name: verify_certificate(
-            ROOT / f"data/tolerance_{name}/certificate.csv", Fraction(0)
+            ROOT / f"data/certificates/tolerance_{name}.csv", Fraction(0)
         )
         for name in ("1e-6", "1e-10")
     }

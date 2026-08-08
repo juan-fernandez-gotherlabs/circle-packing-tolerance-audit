@@ -127,7 +127,7 @@ def solve_graph(keys: list[Constraint], seed: np.ndarray, max_nfev: int = 10_000
 
 
 def default_state() -> tuple[np.ndarray, list[Constraint]]:
-    seed = load_csv(ROOT / "data/exact/certificate.csv")
+    seed = load_csv(ROOT / "data/certificates/exact.csv")
     active = detect_active(seed)
     result = solve_graph(active, seed)
     if result.cost > 1e-20:

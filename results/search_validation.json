@@ -1,0 +1,28 @@
+{
+  "evidence_source": "v1.0.0 and circle-packing-full-evidence-v1.1.0.zip",
+  "historical_log_counts": {
+    "first_layer": 78,
+    "second_layer": {
+      "planned": 312,
+      "completed": 312,
+      "complete": true
+    },
+    "cumulative_through_second_layer": 390,
+    "third_layer": {
+      "planned": 468,
+      "completed": 468,
+      "complete": true
+    },
+    "correction": "390 is cumulative through layers 1 and 2; the final attached third-layer log is complete."
+  },
+  "layer1_reimplementation": {
+    "historical_events": 78,
+    "regenerated_events": 78,
+    "matching_drop_labels": 78,
+    "historical_local_maxima": 23,
+    "regenerated_local_maxima": 23,
+    "local_max_classification_disagreements": [],
+    "maximum_absolute_score_difference": 3.311217966484037e-11
+  },
+  "interpretation": "The clean reimplementation reproduces every released contact and local-maximum classification. Small endpoint-score differences are numerical continuation differences."
+}
