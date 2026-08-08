@@ -1,5 +1,5 @@
 {
-  "evidence_source": "v1.0.0 and circle-packing-full-evidence-v1.1.0.zip",
+  "evidence_source": "protected v1.0.0 tag pinned to commit 2359ee29d5de8747a124a5439779b8d4c553cce0; planned v1.1.0 evidence archive",
   "historical_log_counts": {
     "first_layer": 78,
     "second_layer": {

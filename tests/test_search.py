@@ -4,6 +4,7 @@ import json
 import sys
 import tempfile
 import unittest
+from fractions import Fraction
 from pathlib import Path
 
 import numpy as np
@@ -13,7 +14,9 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import contact_graph
+import derive_nearby_strict
 import search
+import verifier
 
 
 class SearchTests(unittest.TestCase):
@@ -53,6 +56,15 @@ class SearchTests(unittest.TestCase):
         self.assertEqual(historical["third_layer"]["completed"], 468)
         self.assertEqual(layer1["matching_drop_labels"], 78)
         self.assertEqual(layer1["local_max_classification_disagreements"], [])
+
+    def test_nearby_derivation_is_honestly_labelled_and_strict(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory)
+            report = derive_nearby_strict.derive(output)
+            self.assertEqual(report["source_certificate"], "data/certificates/exact.csv")
+            self.assertFalse(report["independent_reconstruction"])
+            rebuilt = verifier.verify_certificate(output / "certificate.csv", Fraction(0))
+            self.assertTrue(rebuilt["valid"])
 
 
 if __name__ == "__main__":

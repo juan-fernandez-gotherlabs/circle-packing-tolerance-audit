@@ -17,7 +17,9 @@ from typing import Iterable
 
 ROOT = Path(__file__).resolve().parents[1]
 N = 26
-CONSTRAINTS = 4 * N + N * (N - 1) // 2
+GEOMETRIC_CONSTRAINTS = 4 * N + N * (N - 1) // 2
+POSITIVITY_CONDITIONS = N
+TOTAL_CONDITIONS = GEOMETRIC_CONSTRAINTS + POSITIVITY_CONDITIONS
 
 
 def rational(value: str | Decimal | Fraction | int) -> Fraction:
@@ -108,7 +110,12 @@ def verify_circles(
         "min_wall_margin_at_tolerance": decimal_string(min_wall + tolerance),
         "min_pair_margin_at_tolerance": format(min_pair_margin, ".100g"),
         "min_pair_margin_where": list(min_pair_where),
-        "constraints_checked": CONSTRAINTS,
+        "geometric_constraints_checked": GEOMETRIC_CONSTRAINTS,
+        "positivity_conditions_checked": POSITIVITY_CONDITIONS,
+        "total_conditions_checked": TOTAL_CONDITIONS,
+        # Backwards-compatible field retained for historical consumers.  It
+        # counts only wall and pairwise geometric constraints.
+        "constraints_checked": GEOMETRIC_CONSTRAINTS,
         "decision_arithmetic": "exact rational",
     }
 
@@ -152,8 +159,10 @@ def verify_repository(write: bool = True) -> dict:
             raise AssertionError(f"{name} certificate is invalid under its own contract")
         if Decimal(result["score"]) != expected_scores[name]:
             raise AssertionError(f"{name} score changed: {result['score']}")
-        if result["constraints_checked"] != CONSTRAINTS:
+        if result["geometric_constraints_checked"] != GEOMETRIC_CONSTRAINTS:
             raise AssertionError(f"{name}: incomplete constraint count")
+        if result["total_conditions_checked"] != TOTAL_CONDITIONS:
+            raise AssertionError(f"{name}: incomplete condition count")
     if zero_checks["1e-6"]["valid"] or zero_checks["1e-10"]["valid"]:
         raise AssertionError("relaxed certificates must not be described as tolerance-zero packings")
 

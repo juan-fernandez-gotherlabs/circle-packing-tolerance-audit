@@ -1,12 +1,20 @@
 {
   "audit_date": "2026-08-06",
   "problem": "26 variable-radius circles in the unit square; maximize sum of radii",
-  "method": "Exact rational inequalities on serialized values; no validation epsilon in the zero-tolerance case.",
+  "snapshot_status": "historical_observational_snapshot",
+  "end_to_end_reproducible": false,
+  "method": "Stored results from exact rational inequalities on serialized values; no validation epsilon in the zero-tolerance case.",
+  "limitations": [
+    "The original acquisition and parsing program was not preserved.",
+    "Not every exact upstream payload can be reacquired from an immutable reference.",
+    "The rankings are internally checkable stored results, not independent proof of leaderboard position.",
+    "The rational 1e-6 contract is not asserted to be bit-for-bit equivalent to the public binary64 evaluator."
+  ],
   "candidate_count": 30,
   "candidates": [
     {
       "name": "Nuestro certificado exacto",
-      "source": "Real result/Exacto/strict_high_precision.csv",
+      "source": "data/certificates/exact.csv",
       "note": "Decimales finitos verificados como racionales exactos.",
       "checks": {
         "0": {
@@ -40,7 +48,7 @@
     },
     {
       "name": "Nuestro candidato 1e-10",
-      "source": "Real result/1e-10/coordinates_internal_1e10.csv",
+      "source": "data/certificates/tolerance_1e-10.csv",
       "note": "",
       "checks": {
         "0": {
@@ -74,7 +82,7 @@
     },
     {
       "name": "Nuestro candidato 1e-6",
-      "source": "Real result/1e-6/coordinates_public_record.csv",
+      "source": "data/certificates/tolerance_1e-6.csv",
       "note": "",
       "checks": {
         "0": {
@@ -1029,7 +1037,7 @@
     "0": [
       {
         "name": "Nuestro certificado exacto",
-        "source": "Real result/Exacto/strict_high_precision.csv",
+        "source": "data/certificates/exact.csv",
         "valid": true,
         "score": "2.63598308491760778318656948544348173039667679827447485774577112986070384933447233967679974",
         "min_wall_gap_zero": "1.0000000000000015957e-75",
@@ -1196,7 +1204,7 @@
     "1e-10": [
       {
         "name": "Nuestro candidato 1e-10",
-        "source": "Real result/1e-10/coordinates_internal_1e10.csv",
+        "source": "data/certificates/tolerance_1e-10.csv",
         "valid": true,
         "score": "2.63598308647338795",
         "min_wall_gap_zero": "-9.950014e-11",
@@ -1229,7 +1237,7 @@
       },
       {
         "name": "Nuestro certificado exacto",
-        "source": "Real result/Exacto/strict_high_precision.csv",
+        "source": "data/certificates/exact.csv",
         "valid": true,
         "score": "2.63598308491760778318656948544348173039667679827447485774577112986070384933447233967679974",
         "min_wall_gap_zero": "1.0000000000000015957e-75",
@@ -1429,7 +1437,7 @@
     "1e-6": [
       {
         "name": "Nuestro candidato 1e-6",
-        "source": "Real result/1e-6/coordinates_public_record.csv",
+        "source": "data/certificates/tolerance_1e-6.csv",
         "valid": true,
         "score": "2.63599872089287514",
         "min_wall_gap_zero": "-9.9999950015e-7",
@@ -1506,7 +1514,7 @@
       },
       {
         "name": "Nuestro candidato 1e-10",
-        "source": "Real result/1e-10/coordinates_internal_1e10.csv",
+        "source": "data/certificates/tolerance_1e-10.csv",
         "valid": true,
         "score": "2.63598308647338795",
         "min_wall_gap_zero": "-9.950014e-11",
@@ -1539,7 +1547,7 @@
       },
       {
         "name": "Nuestro certificado exacto",
-        "source": "Real result/Exacto/strict_high_precision.csv",
+        "source": "data/certificates/exact.csv",
         "valid": true,
         "score": "2.63598308491760778318656948544348173039667679827447485774577112986070384933447233967679974",
         "min_wall_gap_zero": "1.0000000000000015957e-75",

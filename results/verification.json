@@ -22,6 +22,9 @@
         17,
         18
       ],
+      "geometric_constraints_checked": 429,
+      "positivity_conditions_checked": 26,
+      "total_conditions_checked": 455,
       "constraints_checked": 429,
       "decision_arithmetic": "exact rational",
       "certificate": "data/certificates/tolerance_1e-6.csv"
@@ -46,6 +49,9 @@
         17,
         21
       ],
+      "geometric_constraints_checked": 429,
+      "positivity_conditions_checked": 26,
+      "total_conditions_checked": 455,
       "constraints_checked": 429,
       "decision_arithmetic": "exact rational",
       "certificate": "data/certificates/tolerance_1e-10.csv"
@@ -70,6 +76,9 @@
         10,
         11
       ],
+      "geometric_constraints_checked": 429,
+      "positivity_conditions_checked": 26,
+      "total_conditions_checked": 455,
       "constraints_checked": 429,
       "decision_arithmetic": "exact rational",
       "certificate": "data/certificates/exact.csv"
@@ -96,6 +105,9 @@
         17,
         18
       ],
+      "geometric_constraints_checked": 429,
+      "positivity_conditions_checked": 26,
+      "total_conditions_checked": 455,
       "constraints_checked": 429,
       "decision_arithmetic": "exact rational",
       "certificate": "data/certificates/tolerance_1e-6.csv"
@@ -120,6 +132,9 @@
         17,
         21
       ],
+      "geometric_constraints_checked": 429,
+      "positivity_conditions_checked": 26,
+      "total_conditions_checked": 455,
       "constraints_checked": 429,
       "decision_arithmetic": "exact rational",
       "certificate": "data/certificates/tolerance_1e-10.csv"

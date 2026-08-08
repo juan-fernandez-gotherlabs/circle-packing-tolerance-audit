@@ -19,7 +19,17 @@ from xml.sax.saxutils import escape
 ROOT = Path(__file__).resolve().parents[1]
 AUDIT = ROOT / "data/leaderboard_audit.json"
 EXACT = ROOT / "data/certificates/exact.csv"
-HASHED_DIRS = ("data", "figures", "results")
+HASHED_DIRS = (".github", "data", "docs", "figures", "results", "scripts", "tests")
+HASHED_FILES = ("CITATION.cff", "LICENSE", "README.md", "requirements.lock", "verify_all.sh")
+PRIMARY_CANDIDATES = {
+    "0": "Nuestro certificado exacto",
+    "1e-10": "Nuestro candidato 1e-10",
+    "1e-6": "Nuestro candidato 1e-6",
+}
+AUTHOR_CANDIDATES = frozenset(PRIMARY_CANDIDATES.values())
+EVIDENCE_SOURCE_TAG = "v1.0.0"
+EVIDENCE_SOURCE_COMMIT = "2359ee29d5de8747a124a5439779b8d4c553cce0"
+EVIDENCE_ARCHIVE_SHA256 = "d55ec1eae5b50c0eb81b89da86fa520c9988d122cbe77465c180af1b30181f87"
 EVIDENCE_PATHS = (
     "data/audit/AUDIT_REPORT_ES.md",
     "data/exact/high_precision_report.json",
@@ -55,30 +65,48 @@ def digest_file(path: Path) -> str:
 
 def generate_table() -> Path:
     audit = json.loads(AUDIT.read_text(encoding="utf-8"))
+    if audit.get("snapshot_status") != "historical_observational_snapshot":
+        raise AssertionError("leaderboard data must be labelled as an observational snapshot")
+    if audit.get("end_to_end_reproducible") is not False:
+        raise AssertionError("leaderboard snapshot must disclose that it is not end-to-end reproducible")
     lines = [
-        "# Generated audit tables",
+        "# Historical comparison snapshot",
         "",
         f"Frozen audit date: **{audit['audit_date']}**. Candidates: **{audit['candidate_count']}**.",
         "",
-        "> Rankings are limited to the frozen public corpus and exclude claims without a downloadable witness.",
+        "> This is an observational snapshot, not an end-to-end reproducible leaderboard. "
+        "The acquisition code and all source payloads were not preserved. It must not be cited "
+        "as independent proof of rank.",
+        "",
+        "> Each section contains exactly one author certificate and external candidates checked "
+        "under the same rational tolerance. The author's other certificates are excluded.",
         "",
     ]
     for tolerance in ("0", "1e-10", "1e-6"):
+        rows = [
+            row
+            for row in audit["rankings"][tolerance]
+            if row["name"] not in AUTHOR_CANDIDATES
+            or row["name"] == PRIMARY_CANDIDATES[tolerance]
+        ]
         lines.extend(
             [
-                f"## Ranking at tolerance `{tolerance}`",
+                f"## Snapshot at rational tolerance `{tolerance}`",
                 "",
-                "| Rank | Candidate | Recomputed score | Source |",
+                "| Snapshot position | Candidate | Stored recomputed score | Source |",
                 "| ---: | --- | ---: | --- |",
             ]
         )
-        for rank, row in enumerate(audit["rankings"][tolerance], 1):
+        for rank, row in enumerate(rows, 1):
             lines.append(f"| {rank} | {row['name']} | `{row['score']}` | {row['source']} |")
         lines.append("")
 
     lines.extend(
         [
-            "## All audited candidates across contracts",
+            "## Stored validity matrix",
+            "",
+            "> This matrix reports stored checks; it is not a cross-tolerance ranking and its scores "
+            "must not be compared across columns.",
             "",
             "| Candidate | Score | exact | `1e-10` | `1e-6` | Source |",
             "| --- | ---: | :---: | :---: | :---: | --- |",
@@ -178,14 +206,18 @@ def generate_visualization() -> Path:
 
 def generate_manifest() -> Path:
     target = ROOT / "SHA256SUMS"
-    paths = sorted(
+    paths = {
         path
         for dirname in HASHED_DIRS
         for path in (ROOT / dirname).rglob("*")
         if path.is_file()
-    )
+    }
+    paths.update(ROOT / name for name in HASHED_FILES)
     target.write_text(
-        "".join(f"{digest_file(path)}  {path.relative_to(ROOT)}\n" for path in paths),
+        "".join(
+            f"{digest_file(path)}  {path.relative_to(ROOT)}\n"
+            for path in sorted(paths)
+        ),
         encoding="utf-8",
     )
     return target
@@ -199,11 +231,20 @@ def _zip_info(name: str) -> zipfile.ZipInfo:
 
 
 def package_evidence(
-    output: Path, source_tag: str = "v1.0.0", source_repo: Path = ROOT
+    output: Path, source_tag: str = EVIDENCE_SOURCE_TAG, source_repo: Path = ROOT
 ) -> tuple[Path, Path]:
-    """Package bulky v1.0 evidence without keeping it on the review surface."""
+    """Package bulky v1.0 evidence from a pinned and tag-checked commit."""
+    resolved_tag = subprocess.check_output(
+        ["git", "rev-parse", f"{source_tag}^{{commit}}"], cwd=source_repo, text=True
+    ).strip()
+    if source_tag != EVIDENCE_SOURCE_TAG or resolved_tag != EVIDENCE_SOURCE_COMMIT:
+        raise RuntimeError(
+            f"refusing evidence source {source_tag} -> {resolved_tag}; expected "
+            f"{EVIDENCE_SOURCE_TAG} -> {EVIDENCE_SOURCE_COMMIT}"
+        )
     tar_bytes = subprocess.check_output(
-        ["git", "archive", "--format=tar", source_tag, "--", *EVIDENCE_PATHS], cwd=source_repo
+        ["git", "archive", "--format=tar", EVIDENCE_SOURCE_COMMIT, "--", *EVIDENCE_PATHS],
+        cwd=source_repo,
     )
     payloads = {}
     with tarfile.open(fileobj=io.BytesIO(tar_bytes), mode="r:") as source:
@@ -214,9 +255,6 @@ def package_evidence(
                 payloads[member.name] = handle.read()
     if len(payloads) != 180:
         raise AssertionError(f"expected 180 evidence files from {source_tag}, found {len(payloads)}")
-    commit = subprocess.check_output(
-        ["git", "rev-parse", f"{source_tag}^{{commit}}"], cwd=source_repo, text=True
-    ).strip()
     entries = []
     for path, value in sorted(payloads.items()):
         entries.append({"path": path, "sha256": digest_bytes(value), "bytes": len(value)})
@@ -224,8 +262,8 @@ def package_evidence(
         json.dumps(
             {
                 "schema_version": 1,
-                "source_tag": source_tag,
-                "source_commit": commit,
+                "source_tag": EVIDENCE_SOURCE_TAG,
+                "source_commit": EVIDENCE_SOURCE_COMMIT,
                 "file_count": len(entries),
                 "files": entries,
             },
@@ -240,8 +278,14 @@ def package_evidence(
         archive.writestr(_zip_info(prefix + "MANIFEST.json"), manifest)
         for path in sorted(payloads):
             archive.writestr(_zip_info(prefix + path), payloads[path])
+    archive_digest = digest_file(output)
+    if archive_digest != EVIDENCE_ARCHIVE_SHA256:
+        raise AssertionError(
+            f"evidence archive digest changed: {archive_digest}; "
+            f"expected {EVIDENCE_ARCHIVE_SHA256}"
+        )
     checksum = output.with_suffix(output.suffix + ".sha256")
-    checksum.write_text(f"{digest_file(output)}  {output.name}\n", encoding="utf-8")
+    checksum.write_text(f"{archive_digest}  {output.name}\n", encoding="utf-8")
     return output, checksum
 
 

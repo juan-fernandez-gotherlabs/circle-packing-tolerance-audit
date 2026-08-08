@@ -5,7 +5,7 @@ square while maximizing the sum of their radii.
 
 | Contract | Recomputed score | Interpretation |
 | --- | ---: | --- |
-| `1e-6` | `2.63599872089287514` | Public benchmark tolerance |
+| `1e-6` | `2.63599872089287514` | Exact-rational linear tolerance contract |
 | `1e-10` | `2.63598308647338795` | Stricter numerical tolerance |
 | `0` | `2.635983084917607783186569485443481730396676798274474857745771129860703849334…` | Strict finite-decimal rational witness |
 
@@ -26,27 +26,32 @@ python -m pip install --requirement requirements.lock
 ./verify_all.sh
 ```
 
-The command checks all 1,287 inequalities—429 per certificate—with exact
-rational pass/fail decisions, runs the tests, regenerates the audit table and
-SVG, and updates `SHA256SUMS`. CI repeats the same command on Linux.
+The command checks 1,287 geometric inequalities—429 per certificate—plus 78
+radius-positivity conditions, for 1,365 exact-rational decisions in total. It
+runs the tests, regenerates the audit table and SVG, and updates the repository
+artifact manifest `SHA256SUMS`. CI repeats the same command on Linux.
 
 The primary review path is intentionally small:
 
 - `data/certificates/`: the three tolerance-separated witnesses;
 - `scripts/verifier.py`: independent standard-library rational verifier;
 - `results/verification.json`: machine-readable feasibility margins;
-- `data/leaderboard_audit.json` and `results/audit_tables.md`: frozen,
-  tolerance-matched public-corpus audit;
+- `data/leaderboard_audit.json` and `results/audit_tables.md`: a historical,
+  tolerance-matched comparison snapshot with explicit reproducibility limits;
 - `docs/METHODS.md`: method, exactness, provenance, limitations, and AI
   disclosure.
 
-## Reconstruct the numerical work
+## Reproduce numerical diagnostics
 
-Rebuild the conservative exact certificate:
+Derive another nearby strict certificate from the published witness:
 
 ```bash
-python scripts/refine_exact.py --output-dir work/rebuilt_exact
+python scripts/derive_nearby_strict.py --output-dir work/nearby_strict
 ```
+
+This is deliberately not called a reconstruction: it uses the published
+certificate to discover and seed the contact system and does not reproduce the
+published CSV byte for byte.
 
 Regenerate the 78 first-layer contact releases and deterministic `.npz` seeds:
 
@@ -59,14 +64,19 @@ The missing historical `contact_flip.py` is replaced by the self-contained
 contacts and all 23 historical local-maximum classifications. It is a
 reconstruction, not a claim of byte-identical recovery of the former sandbox.
 
-## Full evidence archive
+## Full evidence archive (release candidate)
 
-The `v1.1.0` release attaches
-`circle-packing-full-evidence-v1.1.0.zip` and its SHA-256 checksum. That archive
+The planned immutable `v1.1.0` release will attach
+`circle-packing-full-evidence-v1.1.0.zip` and its SHA-256 checksum. The archive
 preserves the original model explanations and programs, historical logs, and
 all 78 regenerated seeds and traces without placing 180 archival files on the
 reviewer-facing branch. It contains a per-file `MANIFEST.json` and can be
-rebuilt from the immutable `v1.0.0` tag:
+rebuilt from the pinned commit
+`2359ee29d5de8747a124a5439779b8d4c553cce0`. The builder also requires the
+protected `v1.0.0` tag to resolve to that commit and verifies the expected ZIP
+SHA-256 `d55ec1eae5b50c0eb81b89da86fa520c9988d122cbe77465c180af1b30181f87`.
+This command requires a full Git clone with tags; GitHub source archives do not
+contain the `.git` objects it needs:
 
 ```bash
 python scripts/build.py \
@@ -78,13 +88,16 @@ python scripts/build.py \
 1. Each certificate passes its explicitly named numerical contract.
 2. The finite decimals in `data/certificates/exact.csv`, interpreted as exact
    rationals, satisfy all 429 geometric inequalities at tolerance zero.
-3. Each primary certificate ranks first inside the frozen public corpus dated
-   2026-08-06 when compared only under the same tolerance.
-4. The strict witness reconstructs a full-rank 78-contact stationary
+3. The strict witness reconstructs a full-rank 78-contact stationary
    configuration with 58 pair and 20 wall contacts.
 
-Rankings exclude private results and public claims without a complete witness.
-Read `docs/METHODS.md` before citing these claims.
+The historical snapshot places each primary certificate ahead of the external
+candidates stored for its matching rational tolerance, but this is not a
+supported rank claim: the original acquisition program and every upstream
+payload were not preserved. Our other two certificates are excluded from each
+snapshot comparison. The rational `1e-6` contract is also not claimed to be
+bit-for-bit equivalent to the public evaluator's binary64 implementation. Read
+`docs/METHODS.md` before citing these results.
 
 ## Citation and license
 

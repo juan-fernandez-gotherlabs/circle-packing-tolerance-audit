@@ -24,6 +24,13 @@ class ExactVerifierTests(unittest.TestCase):
         self.assertFalse(report["relaxed_certificates_rechecked_at_zero"]["1e-6"]["valid"])
         self.assertFalse(report["relaxed_certificates_rechecked_at_zero"]["1e-10"]["valid"])
 
+    def test_condition_counts_include_radius_positivity(self):
+        report = verifier.verify_repository(write=False)
+        for case in report["cases"].values():
+            self.assertEqual(case["geometric_constraints_checked"], 429)
+            self.assertEqual(case["positivity_conditions_checked"], 26)
+            self.assertEqual(case["total_conditions_checked"], 455)
+
     def test_exact_score_is_finite_decimal_rational(self):
         circles = verifier.load_certificate(ROOT / "data/certificates/exact.csv")
         score = sum((radius for _, _, radius in circles), Fraction())

@@ -1,9 +1,11 @@
 {
   "generated_on": "2026-08-08",
+  "status": "historical_observational_snapshot",
+  "verification_scope": "Public URLs, commits, and hashes below are externally checkable where supplied. The private ChatGPT conversation and exact EinsteinArena API payloads are author-declared and cannot be authenticated or reacquired from this repository.",
   "entries": [
     {
       "candidate": "Nuestro certificado exacto",
-      "audit_source_label": "Real result/Exacto/strict_high_precision.csv",
+      "audit_source_label": "data/certificates/exact.csv",
       "license_checked_on": "2026-08-08",
       "redistribution": "Included in data/ as the primary artifact.",
       "upstream": "ChatGPT conversation 6a6b0f23-f53c-83eb-8a83-b3d4cdaa383d and recovered local artifacts",
@@ -11,7 +13,7 @@
     },
     {
       "candidate": "Nuestro candidato 1e-10",
-      "audit_source_label": "Real result/1e-10/coordinates_internal_1e10.csv",
+      "audit_source_label": "data/certificates/tolerance_1e-10.csv",
       "license_checked_on": "2026-08-08",
       "redistribution": "Included in data/ as the primary artifact.",
       "upstream": "ChatGPT conversation 6a6b0f23-f53c-83eb-8a83-b3d4cdaa383d and recovered local artifacts",
@@ -19,7 +21,7 @@
     },
     {
       "candidate": "Nuestro candidato 1e-6",
-      "audit_source_label": "Real result/1e-6/coordinates_public_record.csv",
+      "audit_source_label": "data/certificates/tolerance_1e-6.csv",
       "license_checked_on": "2026-08-08",
       "redistribution": "Included in data/ as the primary artifact.",
       "upstream": "ChatGPT conversation 6a6b0f23-f53c-83eb-8a83-b3d4cdaa383d and recovered local artifacts",
@@ -31,6 +33,8 @@
       "license_checked_on": "2026-08-08",
       "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
       "upstream": "https://github.com/THU-Team-Eureka/EurekAgent/blob/38585790ff56e7993aec322e0179ded8b101d82c/results/circle_packing/result.jsonl",
+      "upstream_commit": "38585790ff56e7993aec322e0179ded8b101d82c",
+      "upstream_sha256": "21304b7864de0cc4c5847a0d68c4823505472218f652c8abf8740f1508afca00",
       "license": "AGPL-3.0 (GitHub repository license detection)"
     },
     {
@@ -192,6 +196,8 @@
       "license_checked_on": "2026-08-08",
       "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
       "upstream": "https://www.packomania.com/csqv/txt/csqv26.txt",
+      "upstream_sha256_observed_2026-08-08": "d8dcaac26602229340fd95eda93858b7556ac745ef2a7834864cebd33d0116a4",
+      "immutable_reference": false,
       "license": "No explicit redistribution license identified"
     },
     {
@@ -199,7 +205,9 @@
       "audit_source_label": "Tencent-Hunyuan/Hyra-results cirRsqu_n26.json",
       "license_checked_on": "2026-08-08",
       "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
-      "upstream": "https://github.com/Tencent-Hunyuan/Hyra-results/blob/main/AI4Science/packing_records/records/cirRsqu_n26.json",
+      "upstream": "https://github.com/Tencent-Hunyuan/Hyra-results/blob/26ebfbe7d491e6521d8bb5fc21fe88bb31460825/AI4Science/packing_records/records/cirRsqu_n26.json",
+      "upstream_commit": "26ebfbe7d491e6521d8bb5fc21fe88bb31460825",
+      "upstream_sha256": "c16d2472e9516005195cef7f1f0ed4e7c2e709544bcba5dfcbe52bc3d26ff50e",
       "license": "Apache-2.0 for Tencent-authored material; upstream LICENSE contains third-party qualifications"
     },
     {
@@ -207,7 +215,9 @@
       "audit_source_label": "ypwang61/ThetaEvolve Results/CirclePacking/data.json",
       "license_checked_on": "2026-08-08",
       "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
-      "upstream": "https://github.com/ypwang61/ThetaEvolve/blob/main/Results/CirclePacking/data.json",
+      "upstream": "https://github.com/ypwang61/ThetaEvolve/blob/7c12898f5d7627af403e3aca643af76199fb5c20/Results/CirclePacking/data.json",
+      "upstream_commit": "7c12898f5d7627af403e3aca643af76199fb5c20",
+      "upstream_sha256": "c20023f5a4d3e1408a7ec29ee043dea3c2b8d9711dd21c806008b5a48646e7b8",
       "license": "Apache-2.0 (GitHub repository license detection)"
     },
     {
@@ -215,7 +225,9 @@
       "audit_source_label": "ypwang61/ThetaEvolve Results/CirclePacking/data.json",
       "license_checked_on": "2026-08-08",
       "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
-      "upstream": "https://github.com/ypwang61/ThetaEvolve/blob/main/Results/CirclePacking/data.json",
+      "upstream": "https://github.com/ypwang61/ThetaEvolve/blob/7c12898f5d7627af403e3aca643af76199fb5c20/Results/CirclePacking/data.json",
+      "upstream_commit": "7c12898f5d7627af403e3aca643af76199fb5c20",
+      "upstream_sha256": "c20023f5a4d3e1408a7ec29ee043dea3c2b8d9711dd21c806008b5a48646e7b8",
       "license": "Apache-2.0 (GitHub repository license detection)"
     },
     {
@@ -223,7 +235,9 @@
       "audit_source_label": "ypwang61/ThetaEvolve Results/CirclePacking/data.json",
       "license_checked_on": "2026-08-08",
       "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
-      "upstream": "https://github.com/ypwang61/ThetaEvolve/blob/main/Results/CirclePacking/data.json",
+      "upstream": "https://github.com/ypwang61/ThetaEvolve/blob/7c12898f5d7627af403e3aca643af76199fb5c20/Results/CirclePacking/data.json",
+      "upstream_commit": "7c12898f5d7627af403e3aca643af76199fb5c20",
+      "upstream_sha256": "c20023f5a4d3e1408a7ec29ee043dea3c2b8d9711dd21c806008b5a48646e7b8",
       "license": "Apache-2.0 (GitHub repository license detection)"
     },
     {
@@ -231,7 +245,9 @@
       "audit_source_label": "ypwang61/ThetaEvolve Results/CirclePacking/data.json",
       "license_checked_on": "2026-08-08",
       "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
-      "upstream": "https://github.com/ypwang61/ThetaEvolve/blob/main/Results/CirclePacking/data.json",
+      "upstream": "https://github.com/ypwang61/ThetaEvolve/blob/7c12898f5d7627af403e3aca643af76199fb5c20/Results/CirclePacking/data.json",
+      "upstream_commit": "7c12898f5d7627af403e3aca643af76199fb5c20",
+      "upstream_sha256": "c20023f5a4d3e1408a7ec29ee043dea3c2b8d9711dd21c806008b5a48646e7b8",
       "license": "Apache-2.0 (GitHub repository license detection)"
     },
     {
@@ -239,7 +255,9 @@
       "audit_source_label": "dualverse-ai/station example/research_circle_n26/station_sota.py",
       "license_checked_on": "2026-08-08",
       "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
-      "upstream": "https://github.com/dualverse-ai/station/blob/main/example/research_circle_n26/station_sota.py",
+      "upstream": "https://github.com/dualverse-ai/station/blob/88f052eb1f4a16eb100315a6173852bb1226bcdb/example/research_circle_n26/station_sota.py",
+      "upstream_commit": "88f052eb1f4a16eb100315a6173852bb1226bcdb",
+      "upstream_sha256": "6a118ae8a27249042b405c19386bd8a5cb4a3a924274187f01ee01c311e1bc1c",
       "license": "Apache-2.0 (GitHub repository license detection)"
     },
     {
@@ -247,7 +265,9 @@
       "audit_source_label": "Kurorz2004/alphaz-coral task1/result/best_program.py",
       "license_checked_on": "2026-08-08",
       "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
-      "upstream": "https://github.com/Kurorz2004/alphaz-coral/blob/main/task1/result/best_program.py",
+      "upstream": "https://github.com/Kurorz2004/alphaz-coral/blob/3cd38221847e442d4b11822d2cf31646db2daa47/task1/result/best_program.py",
+      "upstream_commit": "3cd38221847e442d4b11822d2cf31646db2daa47",
+      "upstream_sha256": "405c6bf6b30d64d9c8f531d6d9d171ff7d713635b3f27252d7fa057f1e9ffee4",
       "license": "No repository license detected"
     },
     {
@@ -255,7 +275,9 @@
       "audit_source_label": "jasonzliang/circle-packing-sota sota/ours/pck/csqv26.pck",
       "license_checked_on": "2026-08-08",
       "redistribution": "Only derived audit metrics are included; the upstream witness/code is not vendored.",
-      "upstream": "https://github.com/jasonzliang/circle-packing-sota/blob/main/sota/ours/pck/csqv26.pck",
+      "upstream": "https://github.com/jasonzliang/circle-packing-sota/blob/c36af71dbe0b64aecfc29602b4f090f84903f205/sota/ours/pck/csqv26.pck",
+      "upstream_commit": "c36af71dbe0b64aecfc29602b4f090f84903f205",
+      "upstream_sha256": "b28701f7bcf4ea0521e9c76b15d31081e775109e6eb00338670dfaa296dca135",
       "license": "No repository license detected"
     },
     {
