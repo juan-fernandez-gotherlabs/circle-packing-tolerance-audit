@@ -43,10 +43,16 @@ the deliberately shrunken CSV.
 
 ## Contact reconstruction and refinement
 
-The exact witness identifies 78 active constraints under a `1e-7` discovery
-threshold: 58 circle contacts and 20 wall contacts, matching the 78 variables
-`(x_i,y_i,r_i)`. `scripts/contact_graph.py` reconstructs this system without
-the missing historical `contact_flip.py` module.
+The exact witness identifies 78 active constraints under the `1e-7` threshold
+used for exploratory contact discovery: 58 circle contacts and 20 wall
+contacts, matching the 78 variables `(x_i,y_i,r_i)`.
+`scripts/prove_local_optimum.py` independently applies the much stricter
+`1e-40` threshold when checking that the stored interval certificate names
+only essentially vanishing seed gaps. Both thresholds select the same 78
+constraints: the largest selected seed gap is approximately `1.019e-75`,
+whereas the smallest unselected gap is approximately `7.188e-3`.
+`scripts/contact_graph.py` reconstructs this system without the missing
+historical `contact_flip.py` module.
 
 `scripts/derive_nearby_strict.py` uses the published certificate as the seed,
 stabilizes its detected contact root in binary64, performs Newton iterations at
@@ -156,13 +162,20 @@ validity does not depend on accepting that provenance claim.
 
 Bulky historical outputs, original model explanations, original programs, and
 the 78 regenerated seeds and traces are kept out of the reviewer-facing tree.
-They are intended for the immutable `v1.1.0` release attachment
+They are preserved in the immutable historical `v1.1.0` release attachment
 `circle-packing-full-evidence-v1.1.0.zip`, which contains its own per-file
-manifest. Before that release exists, the attachment is a release-candidate
-artifact. `python scripts/build.py --evidence-archive <path>` requires a full
+manifest. `python scripts/build.py --evidence-archive <path>` requires a full
 Git clone with tags, verifies that protected tag `v1.0.0` resolves to pinned
 commit `2359ee29d5de8747a124a5439779b8d4c553cce0`, archives by commit rather than
 tag name, and checks the expected deterministic ZIP hash.
+
+The complete `./verify_all.sh` gate likewise requires a full Git clone because
+it checks the tracked-file manifest and protected historical tag. Standalone
+exact feasibility and interval verification do not depend on Git history. The
+separate `scripts/build_publication.py` gate rebuilds and byte-compares the
+three figure PDFs and the preprint PDF under the pinned reference publication
+toolchain documented in `README.md`; it is a manual release check and does not
+require GitHub Actions.
 
 Repository-authored code is MIT licensed. Unlicensed or ambiguously licensed
 third-party witnesses are not vendored; only derived audit metrics and source

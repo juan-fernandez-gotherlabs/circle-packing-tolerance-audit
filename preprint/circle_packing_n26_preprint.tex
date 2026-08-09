@@ -1,4 +1,7 @@
 \pdfminorversion=7
+\pdfinfoomitdate=1
+\pdftrailerid{}
+\pdfsuppressptexinfo=-1
 \documentclass[11pt]{article}
 
 \usepackage[T1]{fontenc}
@@ -32,7 +35,7 @@ for a variable-radius circle packing with 26 circles}
 \author{Juan Jos\'e Fern\'andez Morales\\
 \small G\"other Labs\\
 \small \href{https://github.com/juan-fernandez-gotherlabs/circle-packing-tolerance-audit}{Reproducibility repository}}
-\date{August 8, 2026}
+\date{August 9, 2026}
 
 \begin{document}
 
@@ -236,8 +239,8 @@ across panels because the feasible sets differ.
 \end{figure}
 
 Within this deliberately bounded corpus it is accurate to describe each
-matching author certificate as the \emph{best independently verified witness
-in the manifested corpus}.  The unqualified phrase ``best-known'' would be
+matching author certificate as the \emph{best exact-rationally re-evaluated
+witness in the manifested corpus}.  The unqualified phrase ``best-known'' would be
 stronger than the evidence: the corpus is not exhaustive, and reported claims
 without complete downloadable witnesses cannot be independently ranked.
 
@@ -276,7 +279,7 @@ $x^*\in X$.  The norm bound also proves that every Jacobian represented in the
 box is nonsingular.  Direct rational interval evaluation proves that all 351
 inactive geometric gaps are strict and all radii are positive:
 \begin{align}
- \min(\text{inactive squared gaps})&>
+ \min(\text{inactive polynomial gaps})&>
  0.0071877548062774697881043072924253371679,                 \label{eq:inactive}\\
  \min_i r_i&>
  0.0691806763572344820974407544002623682677.                 \label{eq:radii}
@@ -310,7 +313,8 @@ nonsingularity of $J(x^*)$.  Equations \eqref{eq:inactive} and
 constraint becomes active at the root.
 
 By the inverse function theorem, $z=g(x)$ is a system of local coordinates in
-a neighborhood of $x^*$.  Set $F(z)=f(g^{-1}(z))$.  From
+a neighborhood of $x^*$.  Restrict the coordinate image, if necessary, to a
+convex ball about $0$, and set $F(z)=f(g^{-1}(z))$.  From
 \eqref{eq:kkt},
 \[
   \nabla_zF(0)=J(x^*)^{-T}\nabla f(x^*)=-\lambda.

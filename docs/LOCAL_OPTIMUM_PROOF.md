@@ -56,6 +56,12 @@ used only by the optional
 `--regenerate-certificate` mode to propose replacement rational data; the
 result still has to pass the same exact verifier.
 
+The `1e-40` active threshold in this verifier is a certificate-consistency
+check, not the exploratory contact-discovery threshold. The latter is `1e-7`.
+Both select the same 78 constraints because the largest selected seed gap is
+approximately `1.019e-75` and the smallest unselected gap is approximately
+`7.188e-3`.
+
 For midpoint `m`, rational preconditioner `C`, and box `X`, the verifier forms
 
 ```text
@@ -108,10 +114,12 @@ coordinates as `F(z)=f(g^{-1}(z))`. At the contact root,
 grad_z F(0) = J(x*)^{-T} grad(f)(x*) = -lambda.
 ```
 
-Every component is strictly negative. By continuity, all components remain
-negative in a sufficiently small box around `z=0`. A nearby feasible packing
+Every component is strictly negative. Restrict the inverse-function image to
+a convex ball about `z=0`. By continuity, all components remain negative in a
+sufficiently small ball. A nearby feasible packing
 has `z>=0`; if it differs from `x*`, then `z` is nonzero. Integrating the
-gradient of `F` along the segment from `0` to `z` gives
+gradient of `F` along the segment from `0` to `z` is valid because that entire
+segment remains inside the convex coordinate domain, and gives
 `F(z)<F(0)`. Hence `x*` is a strict local maximizer.
 
 No Hessian test is needed: the active Jacobian is square and nonsingular, so

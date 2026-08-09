@@ -1,9 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this artifact, please cite it using the metadata below."
 title: "Circle packing n=26: tolerance audit and exact certificate"
-version: "1.1.0"
-date-released: 2026-08-08
-doi: "10.5281/zenodo.21853178"
+version: "1.2.0"
 type: software
 authors:
   - family-names: "Fernández Morales"
@@ -20,5 +18,8 @@ license: MIT
 abstract: >-
   Reproducible artifacts for three numerical contracts of the n=26
   variable-radius circle-packing problem, including an exact-rational
-  finite-decimal certificate, independent verification, a historical
-  public-corpus comparison snapshot, and contact-graph reconstruction.
+  finite-decimal certificate, hash-authenticated public-corpus acquisition,
+  tolerance-separated exact-rational reevaluation, contact-graph
+  reconstruction, and a rational interval proof of strict local optimality
+  for the enclosed 78-contact real root. No global optimum or universal
+  packing record is claimed.

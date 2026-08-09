@@ -1,6 +1,10 @@
 # Circle packing n=26: tolerance audit and exact certificate
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21853178.svg)](https://doi.org/10.5281/zenodo.21853178)
+> **Release candidate for v1.2.0.** The previous public release, v1.1.0, is
+> preserved at [DOI 10.5281/zenodo.21853178](https://doi.org/10.5281/zenodo.21853178).
+> It predates the interval certificate, reproducible public acquisition, and
+> preprint added here. A version-specific v1.2.0 DOI will be added only after
+> the new Zenodo version is reserved and published.
 
 Reproducible certificates for placing 26 variable-radius circles in the unit
 square while maximizing the sum of their radii.
@@ -35,6 +39,13 @@ CPython 3.12.4 on Ubuntu x86-64 is the reference environment for the
 NumPy/SciPy diagnostics. Exact-rational verification uses only the Python
 standard library and is platform-independent.
 
+The complete release gate requires a full Git clone with tags. GitHub or
+Zenodo source archives do not contain the `.git` history needed to verify the
+tracked-file manifest and protected evidence tag. From a source archive, the
+standalone exact checks remain available through `scripts/verifier.py` and
+`python3 -S scripts/prove_local_optimum.py`, but `./verify_all.sh` intentionally
+fails with an explanatory message.
+
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
@@ -49,6 +60,31 @@ separation decisions, for 2,275 condition evaluations in total. The command
 runs the tests, regenerates the local-optimum interval report, the audit table
 and SVG, and updates the repository artifact manifest `SHA256SUMS`. CI repeats
 the same command on Linux.
+
+## Rebuild publication PDFs
+
+The publication gate is local and does not depend on GitHub Actions. Its
+reference toolchain is `rsvg-convert 2.61.3` (Cairo 1.18.4, Pango 1.57.0),
+TeX Live 2022 (`pdfTeX 1.40.24`, `latexmk 4.77`), and `pdfinfo 26.05.0`.
+Rebuild the three vector figures and the preprint, then refresh `SHA256SUMS`:
+
+```bash
+python3 scripts/build_publication.py --write
+```
+
+After committing the outputs, the release gate reconstructs all four PDFs in
+an isolated temporary tree, requires byte identity with the versioned files,
+validates each PDF, runs the complete verification suite, and requires a clean
+Git worktree:
+
+```bash
+python3 scripts/build_publication.py --check
+```
+
+The TeX source suppresses volatile creation dates and trailer identifiers so
+the reference toolchain produces deterministic PDF bytes. A different
+rendering toolchain may produce a visually equivalent but byte-different PDF;
+such a build is not accepted by the frozen release gate.
 
 The primary review path is intentionally small:
 
@@ -131,9 +167,9 @@ The missing historical `contact_flip.py` is replaced by the self-contained
 contacts and all 23 historical local-maximum classifications. It is a
 reconstruction, not a claim of byte-identical recovery of the former sandbox.
 
-## Full evidence archive
+## Historical full evidence archive
 
-The `v1.1.0` release attaches
+The previous `v1.1.0` release attaches the legacy archive
 `circle-packing-full-evidence-v1.1.0.zip` and its SHA-256 checksum. The archive
 preserves the original model explanations and programs, historical logs, and
 all 78 regenerated seeds and traces without placing 180 archival files on the
@@ -142,8 +178,7 @@ rebuilt from the pinned commit
 `2359ee29d5de8747a124a5439779b8d4c553cce0`. The builder also requires the
 protected `v1.0.0` tag to resolve to that commit and verifies the expected ZIP
 SHA-256 `d55ec1eae5b50c0eb81b89da86fa520c9988d122cbe77465c180af1b30181f87`.
-This command requires a full Git clone with tags; GitHub source archives do not
-contain the `.git` objects it needs:
+This historical builder also requires a full Git clone with tags:
 
 ```bash
 python scripts/build.py \
@@ -173,8 +208,11 @@ results.
 
 ## Citation and license
 
-Version `v1.1.0` is archived at Zenodo under
+This tree prepares version `v1.2.0`; its version-specific DOI is intentionally
+absent until the new Zenodo version is reserved. The historical `v1.1.0`
+artifact remains available under
 [DOI `10.5281/zenodo.21853178`](https://doi.org/10.5281/zenodo.21853178).
-Citation metadata is in `CITATION.cff`. Repository-authored code is MIT
+Provisional v1.2.0 citation metadata is in `CITATION.cff`.
+Repository-authored code is MIT
 licensed. External artifacts are not relicensed; `data/provenance.json`
 records their sources and redistribution status.
