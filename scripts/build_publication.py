@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import os
+import platform
 import shutil
 import subprocess
 import sys
@@ -70,10 +71,24 @@ def toolchain() -> dict[str, str]:
         "latexmk": [require_tool("latexmk"), "-v"],
         "pdflatex": [require_tool("pdflatex"), "--version"],
         "pdfinfo": [require_tool("pdfinfo"), "-v"],
+        "fontconfig": [require_tool("fc-match"), "--version"],
+        "harfbuzz": [require_tool("hb-shape"), "--version"],
     }
     versions = {}
     for name, command in commands.items():
         versions[name] = run(command, capture=True).splitlines()[0]
+    font = run(
+        [
+            require_tool("fc-match"),
+            "STIX Two Text",
+            "-f",
+            "%{family}|%{fontversion}|%{file}\n",
+        ],
+        capture=True,
+    ).splitlines()[0]
+    if not font.startswith("STIX Two Text|"):
+        raise RuntimeError(f"STIX Two Text is unavailable: fc-match returned {font}")
+    versions["STIX Two Text"] = font
     return versions
 
 
@@ -152,14 +167,21 @@ def main() -> int:
     mode.add_argument("--check", action="store_true", help="compare from a clean commit")
     args = parser.parse_args()
 
-    if sys.version_info[:2] != (3, 12):
+    if platform.python_implementation() != "CPython" or sys.version_info[:2] != (3, 12):
         raise RuntimeError(
-            f"publication gate requires CPython 3.12, found {sys.version.split()[0]}"
+            "publication gate requires CPython 3.12, found "
+            f"{platform.python_implementation()} {sys.version.split()[0]}"
         )
     try:
-        run(["git", "rev-parse", "--is-inside-work-tree"], capture=True)
+        repository_root = Path(
+            run(["git", "rev-parse", "--show-toplevel"], capture=True).strip()
+        ).resolve()
     except (OSError, subprocess.CalledProcessError) as error:
         raise RuntimeError("publication gate requires a full Git clone") from error
+    if repository_root != ROOT.resolve():
+        raise RuntimeError(
+            f"publication gate requires {ROOT} to be the Git root; found {repository_root}"
+        )
 
     versions = toolchain()
     run([str(ROOT / "verify_all.sh")])
@@ -184,4 +206,8 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    try:
+        raise SystemExit(main())
+    except (AssertionError, RuntimeError, subprocess.CalledProcessError) as error:
+        print(f"ERROR: {error}", file=sys.stderr)
+        raise SystemExit(1) from None

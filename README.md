@@ -3,8 +3,8 @@
 > **Release candidate for v1.2.0.** The previous public release, v1.1.0, is
 > preserved at [DOI 10.5281/zenodo.21853178](https://doi.org/10.5281/zenodo.21853178).
 > It predates the interval certificate, reproducible public acquisition, and
-> preprint added here. A version-specific v1.2.0 DOI will be added only after
-> the new Zenodo version is reserved and published.
+> preprint added here. The version-specific v1.2.0 DOI will first be reserved,
+> then inserted into the audited files before the final tag and publication.
 
 Reproducible certificates for placing 26 variable-radius circles in the unit
 square while maximizing the sum of their radii.
@@ -64,8 +64,9 @@ the same command on Linux.
 ## Rebuild publication PDFs
 
 The publication gate is local and does not depend on GitHub Actions. Its
-reference toolchain is `rsvg-convert 2.61.3` (Cairo 1.18.4, Pango 1.57.0),
-TeX Live 2022 (`pdfTeX 1.40.24`, `latexmk 4.77`), and `pdfinfo 26.05.0`.
+reference toolchain is `rsvg-convert 2.61.3` (Cairo 1.18.4, Pango 1.57.0,
+HarfBuzz 12.2.0, Fontconfig 2.17.1, STIX Two Text 2.13 b171), TeX Live 2022
+(`pdfTeX 1.40.24`, `latexmk 4.77`), and `pdfinfo 26.05.0`.
 Rebuild the three vector figures and the preprint, then refresh `SHA256SUMS`:
 
 ```bash
