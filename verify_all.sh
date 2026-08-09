@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 cd "$REPO_DIR"
 
 REPOSITORY_TOPLEVEL="$(git rev-parse --show-toplevel 2>/dev/null || true)"
+if [[ -n "$REPOSITORY_TOPLEVEL" ]]; then
+  REPOSITORY_TOPLEVEL="$(cd "$REPOSITORY_TOPLEVEL" && pwd -P)"
+fi
 if [[ "$REPOSITORY_TOPLEVEL" != "$REPO_DIR" ]]; then
   echo "ERROR: ./verify_all.sh requires a full Git clone with tags; source archives lack the history needed for the manifest and evidence checks." >&2
   echo "Standalone exact checks: python3 scripts/verifier.py and python3 -S scripts/prove_local_optimum.py" >&2
