@@ -18,6 +18,19 @@ import build
 
 
 class BuildTests(unittest.TestCase):
+    def test_release_identity_is_synchronized(self):
+        citation = (ROOT / "CITATION.cff").read_text(encoding="utf-8")
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        preprint = (
+            ROOT / "preprint/circle_packing_n26_preprint.tex"
+        ).read_text(encoding="utf-8")
+        current_doi = "10.5281/zenodo.21864592"
+        self.assertIn('version: "1.2.0"', citation)
+        self.assertIn("date-released: 2026-08-09", citation)
+        self.assertIn(f"doi: {current_doi}", citation)
+        self.assertIn(current_doi, readme)
+        self.assertIn(current_doi, preprint)
+
     def test_machine_readable_rankings_have_one_matching_author_certificate(self):
         audit = json.loads((ROOT / "data/leaderboard_audit.json").read_text())
         for tolerance, expected in build.PRIMARY_CANDIDATES.items():

@@ -1,10 +1,12 @@
 # Circle packing n=26: tolerance audit and exact certificate
 
-> **Release candidate for v1.2.0.** The previous public release, v1.1.0, is
-> preserved at [DOI 10.5281/zenodo.21853178](https://doi.org/10.5281/zenodo.21853178).
-> It predates the interval certificate, reproducible public acquisition, and
-> preprint added here. The version-specific v1.2.0 DOI will first be reserved,
-> then inserted into the audited files before the final tag and publication.
+> **Release candidate for v1.2.0.** Its version-specific DOI is reserved as
+> [10.5281/zenodo.21864592](https://doi.org/10.5281/zenodo.21864592). The previous
+> public release, v1.1.0, remains preserved at
+> [10.5281/zenodo.21853178](https://doi.org/10.5281/zenodo.21853178); it predates
+> the interval certificate, reproducible public acquisition, and preprint added
+> here. The final v1.2.0 tag and Zenodo publication will use the exact commit
+> that passes the post-DOI release audit.
 
 Reproducible certificates for placing 26 variable-radius circles in the unit
 square while maximizing the sum of their radii.
@@ -209,11 +211,11 @@ results.
 
 ## Citation and license
 
-This tree prepares version `v1.2.0`; its version-specific DOI is intentionally
-absent until the new Zenodo version is reserved. The historical `v1.1.0`
-artifact remains available under
+This tree prepares version `v1.2.0`, whose version-specific DOI is reserved as
+[DOI `10.5281/zenodo.21864592`](https://doi.org/10.5281/zenodo.21864592).
+The historical `v1.1.0` artifact remains available under
 [DOI `10.5281/zenodo.21853178`](https://doi.org/10.5281/zenodo.21853178).
-Provisional v1.2.0 citation metadata is in `CITATION.cff`.
+Complete v1.2.0 citation metadata is in `CITATION.cff`.
 Repository-authored code is MIT
 licensed. External artifacts are not relicensed; `data/provenance.json`
 records their sources and redistribution status.
