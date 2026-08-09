@@ -8,6 +8,7 @@ type: software
 authors:
   - family-names: "Fernández Morales"
     given-names: "Juan José"
+    affiliation: "Göther Labs"
 repository-code: "https://github.com/juan-fernandez-gotherlabs/circle-packing-tolerance-audit"
 keywords:
   - circle packing

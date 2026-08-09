@@ -70,6 +70,27 @@ class BuildTests(unittest.TestCase):
         self.assertEqual(text.count("<line "), 80)
         self.assertIn("58 pair contacts + 20 wall contacts", text)
 
+    def test_tolerance_visualization_keeps_contracts_separate(self):
+        text = build.generate_tolerance_visualization().read_text()
+        self.assertEqual(text.count("<circle "), 78)
+        self.assertIn("exact rational", text)
+        self.assertIn("tau = 1e-10", text)
+        self.assertIn("tau = 1e-6", text)
+
+    def test_tolerance_rankings_keep_contracts_separate(self):
+        text = build.generate_tolerance_rankings().read_text()
+        audit = json.loads((ROOT / "results/public_corpus_audit.json").read_text())
+        self.assertEqual(text.count('data-contract="'), 3)
+        self.assertEqual(text.count('data-rank="'), 15)
+        self.assertEqual(text.count('data-source="this_repository"'), 3)
+        self.assertIn("(a) τ = 0", text)
+        self.assertIn("(b) τ = 1e-10", text)
+        self.assertIn("(c) τ = 1e-6", text)
+        self.assertIn("compare positions only within the same panel", text)
+        for contract in ("0", "1e-10", "1e-6"):
+            for row in audit["rankings"][contract][:5]:
+                self.assertIn(f'data-score="{row["score"]}"', text)
+
     def test_provenance_covers_every_audited_candidate(self):
         audit = json.loads((ROOT / "data/leaderboard_audit.json").read_text())
         provenance = json.loads((ROOT / "data/provenance.json").read_text())

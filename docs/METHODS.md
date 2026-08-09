@@ -37,7 +37,9 @@ The numerical boundary root has slightly more score. The certificate was
 rounded to 90 decimal places and every radius was reduced by about `1e-75`, so
 its smallest gap is strictly positive. “Exact” here means exact feasibility of
 the serialized rational witness. It does not mean a radicals expression, an
-interval proof of root uniqueness, or a proof of global optimality.
+interval proof of root uniqueness, or a proof of global optimality. The
+separate interval proof below applies to the nearby real contact root, not to
+the deliberately shrunken CSV.
 
 ## Contact reconstruction and refinement
 
@@ -52,6 +54,18 @@ stabilizes its detected contact root in binary64, performs Newton iterations at
 radius reduction. The resulting CSV is checked independently by the rational
 verifier. This is a derived nearby certificate, not independent reconstruction
 of the published decimal serialization and not a byte-identical recovery path.
+
+The contact root itself now has a rigorous local-optimality certificate.
+`scripts/prove_local_optimum.py` uses exact rational interval endpoints to
+prove a strict Krawczyk inclusion for the square 78-contact polynomial system,
+strict separation of the 351 inactive constraints, and a second Krawczyk
+inclusion for the dual stationarity equations with all 78 multipliers positive.
+Since the active gap map is locally invertible, its gaps are local coordinates;
+the strictly negative objective derivative in every feasible gap direction
+proves a strict local maximum. The default proof path runs with the standard
+library alone. Full details and the distinction between the real contact root
+and the shrunken finite-decimal witness are in
+`docs/LOCAL_OPTIMUM_PROOF.md`.
 
 ## Contact-release search
 
@@ -68,6 +82,50 @@ bitwise recovery. A complete rerun reproduced all 78 released contacts and all
 23 historical local-maximum classifications; the largest endpoint-score
 difference was `3.311217966484037e-11`. See
 `results/search_validation.json`.
+
+## Reproducible public-corpus acquisition
+
+The repository now also contains a smaller, independently repeatable public
+acquisition. `data/public_sources.json` records immutable Git commits, raw
+artifact URLs, expected SHA-256 values, parser identifiers, and observed
+licenses. `scripts/acquire_public.py` downloads those artifacts into ignored
+working storage, authenticates their bytes before parsing, and evaluates every
+complete 26-circle witness with `scripts/verifier.py` at rational tolerances
+zero, `1e-10`, and `1e-6`.
+
+Third-party Python files and the AlphaEvolve notebook are parsed with Python's
+AST and JSON readers; they are never imported or executed. Numeric source
+tokens are recovered as decimal strings rather than first converted to
+binary64. JSON floating-point tokens receive the same treatment. This makes
+the uniform decisions exact for the public serialized decimals.
+
+The report additionally contains independent binary64 reimplementations of the
+published AlphaEvolve zero-tolerance check and EurekAgent
+`adapted_validate_packing(atol=1e-6)`. The upstream evaluator source is itself
+commit- and hash-pinned, but is not executed. This separate view is necessary:
+the EurekAgent witness passes its public binary64 evaluator while missing the
+repository's exact-rational `1e-6` boundary by a sub-decimal rounding amount.
+The corresponding source-native table applies one evaluator to the complete
+acquired corpus and puts the matching author certificate in that same table.
+
+Only serialized centers and radii enter witness rankings. AlphaZ-CORAL is
+downloaded and authenticated but excluded because the published file stores
+centers and computes radii by solving a linear program at runtime. Numaro and
+HELIX are documented as reported claims because no complete downloadable n=26
+witness was located. Their reported scores are not treated as verified data.
+
+Packomania is the sole complete-witness source without an immutable artifact
+URL. Its 2026-08-08 payload is protected by an expected SHA-256 and the default
+acquisition fails closed if the page changes. No matching Internet Archive
+payload was available during preparation. Consequently a future online replay
+depends on that mutable payload remaining available; an already authenticated
+local cache can be replayed with `--offline`. This limitation is explicit in
+the source manifest and report.
+
+`results/public_corpus_audit.json` is the full machine-readable output;
+`results/public_corpus_audit.md` is its compact rendering. Positions in those
+files are mechanically reproducible within the manifested corpus. They are not
+claims of exhaustive literature coverage.
 
 ## Historical public-corpus snapshot
 
@@ -118,8 +176,9 @@ identifiers are retained. These license observations are not legal advice.
    published `n=26` value at 12 decimal places.
 3. The historical comparison is observational and not an independently
    reproducible rank claim.
-4. Full rank and signed KKT multipliers are numerical stationarity diagnostics,
-   not a validated proof of local optimality.
+4. Numerical full rank and multiplier signs alone would not prove local
+   optimality. The new claim is limited to the one contact root enclosed by the
+   rational primal and dual interval certificates; it says nothing global.
 5. The historical prose called 390 transitions “additional” in layer 2 and
    described layer 3 at 264/468. The final logs instead contain 312 second-layer
    transitions—390 cumulatively with layer 1—and all 468 third-layer
@@ -127,6 +186,9 @@ identifiers are retained. These license observations are not legal advice.
 6. The exact verifier checks 429 geometric inequalities plus 26 radius
    positivity conditions per certificate. The historical leaderboard JSON's
    `constraints_checked` field refers only to the 429 geometric inequalities.
+7. The new public acquisition is reproducible for its explicitly manifested
+   corpus, not exhaustive. Packomania remains a hash-guarded mutable source,
+   and claims without complete public witnesses cannot be ranked.
 
 ## AI assistance disclosure
 

@@ -21,6 +21,14 @@ feasible lower bound, not global optimality and not a new Packomania record.
 
 ![Exact packing and contact graph](figures/exact_packing_contact_graph.svg)
 
+## Preprint
+
+The accompanying preprint states the tolerance contracts, public-corpus audit,
+and rational interval proof as a single mathematical argument:
+[`preprint/circle_packing_n26_preprint.pdf`](preprint/circle_packing_n26_preprint.pdf).
+Its central theorem is strict local optimality of the enclosed 78-contact real
+root; it makes no claim of global optimality or a new packing record.
+
 ## Verify
 
 CPython 3.12.4 on Ubuntu x86-64 is the reference environment for the
@@ -38,8 +46,9 @@ The three primary contracts require 1,365 exact-rational decisions: 429
 geometric inequalities and 26 radius-positivity conditions per certificate.
 The two relaxed certificates are then rechecked at tolerance zero, adding 910
 separation decisions, for 2,275 condition evaluations in total. The command
-runs the tests, regenerates the audit table and SVG, and updates the repository
-artifact manifest `SHA256SUMS`. CI repeats the same command on Linux.
+runs the tests, regenerates the local-optimum interval report, the audit table
+and SVG, and updates the repository artifact manifest `SHA256SUMS`. CI repeats
+the same command on Linux.
 
 The primary review path is intentionally small:
 
@@ -48,8 +57,56 @@ The primary review path is intentionally small:
 - `results/verification.json`: machine-readable feasibility margins;
 - `data/leaderboard_audit.json` and `results/audit_tables.md`: a historical,
   tolerance-matched comparison snapshot with explicit reproducibility limits;
+- `data/public_sources.json`, `scripts/acquire_public.py`, and
+  `results/public_corpus_audit.*`: the reproducible, hash-authenticated public
+  acquisition and tolerance-separated reevaluation;
+- `data/local_optimum_certificate.json`, `scripts/prove_local_optimum.py`, and
+  `results/local_optimum_interval.json`: the exact-rational interval proof for
+  the 78-contact strict local optimum;
 - `docs/METHODS.md`: method, exactness, provenance, limitations, and AI
   disclosure.
+
+## Verify the strict local optimum
+
+The 78-contact real root near the finite-decimal witness is certified as a
+strict local maximizer. The default verifier uses only the Python standard
+library; `-S` demonstrates that no installed numerical package participates:
+
+```bash
+python3 -S scripts/prove_local_optimum.py
+```
+
+It proves a unique root in a rational box of radius `1e-90`, nonsingularity of
+the active Jacobian throughout that box, strict feasibility of all 351 inactive
+geometric constraints, and positivity of all 78 interval-enclosed KKT
+multipliers. See `docs/LOCAL_OPTIMUM_PROOF.md` for the theorem and exact scope.
+The isolated contact root is slightly above the deliberately shrunken CSV
+witness; this remains a local result and is not a proof of global optimality.
+
+## Refresh the public corpus
+
+Download and authenticate the manifested AlphaEvolve, ThetaEvolve,
+EurekAgent, Hyra, Station, Packomania, Jason Liang, and AlphaZ-CORAL
+artifacts, then reevaluate every complete witness:
+
+```bash
+python scripts/acquire_public.py
+```
+
+The command checks every payload against its SHA-256 before parsing it, never
+imports third-party Python, and writes the machine-readable and human-readable
+reports in `results/public_corpus_audit.*`. Downloaded payloads remain in the
+ignored `work/public_corpus/cache/` directory and can be replayed without the
+network:
+
+```bash
+python scripts/acquire_public.py --offline
+```
+
+GitHub artifacts are pinned to 40-character commits. Packomania does not offer
+an immutable artifact URL: its observed payload is hash-pinned and a changed
+download stops the run. `--allow-mutable-drift` is an explicit investigative
+override and must not be used to reproduce the frozen report.
 
 ## Reproduce numerical diagnostics
 
@@ -100,14 +157,19 @@ python scripts/build.py \
    rationals, satisfy all 429 geometric inequalities at tolerance zero.
 3. The strict witness reconstructs a full-rank 78-contact stationary
    configuration with 58 pair and 20 wall contacts.
+4. The unique real root of that 78-contact system in the certified `1e-90`
+   box is a strict local maximizer, by exact-rational Krawczyk and dual interval
+   certificates.
 
-The historical snapshot places each primary certificate ahead of the external
-candidates stored for its matching rational tolerance, but this is not a
-supported rank claim: the original acquisition program and every upstream
-payload were not preserved. Our other two certificates are excluded from each
-snapshot comparison. The rational `1e-6` contract is also not claimed to be
-bit-for-bit equivalent to the public evaluator's binary64 implementation. Read
-`docs/METHODS.md` before citing these results.
+The reproducible public-corpus report places each primary certificate first
+among the acquired witnesses valid under its matching rational tolerance. The
+separate EurekAgent binary64 `atol=1e-6` reproduction also places our `1e-6`
+certificate above the public EurekAgent witness. These are positions inside the
+explicitly manifested corpus, not universal leaderboard claims. The older
+30-candidate historical snapshot remains contextual only because its original
+acquisition payloads were not preserved. Our other two certificates are
+excluded from each comparison. Read `docs/METHODS.md` before citing these
+results.
 
 ## Citation and license
 

@@ -4,3 +4,11 @@ __pycache__/
 .pytest_cache/
 dist/
 work/
+
+# LaTeX build intermediates; keep the source and final PDF only.
+preprint/*.aux
+preprint/*.fdb_latexmk
+preprint/*.fls
+preprint/*.log
+preprint/*.out
+preprint/*.synctex.gz

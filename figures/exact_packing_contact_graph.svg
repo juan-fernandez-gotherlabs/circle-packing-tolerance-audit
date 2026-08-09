@@ -114,7 +114,7 @@
 <circle cx="773.757515" cy="126.242485" r="66.242485"/>
 <circle cx="244.334616" cy="653.025788" r="53.960928"/>
 </g>
-<g id="labels" fill="#0f172a" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" text-anchor="middle" dominant-baseline="central">
+<g id="labels" fill="#0f172a" font-family="STIX Two Text, serif" font-size="13" text-anchor="middle" dominant-baseline="central">
 <text x="146.407630" y="753.592370">0</text>
 <text x="307.058343" y="765.328783">1</text>
 <text x="462.011374" y="759.612794">2</text>
@@ -142,7 +142,7 @@
 <text x="773.757515" y="126.242485">24</text>
 <text x="244.334616" y="653.025788">25</text>
 </g>
-<text x="60" y="932" font-family="system-ui, sans-serif" font-size="18" fill="#111827">n=26 exact finite-decimal certificate — 58 pair contacts + 20 wall contacts</text>
-<line x1="60" y1="958" x2="96" y2="958" stroke="#dc2626" stroke-width="3"/><text x="106" y="964" font-family="system-ui, sans-serif" font-size="15">circle contact</text>
-<line x1="280" y1="958" x2="316" y2="958" stroke="#f59e0b" stroke-width="3" stroke-dasharray="7 5"/><text x="326" y="964" font-family="system-ui, sans-serif" font-size="15">wall contact</text>
+<text x="60" y="932" font-family="STIX Two Text, serif" font-size="18" fill="#111827">n=26 exact finite-decimal certificate — 58 pair contacts + 20 wall contacts</text>
+<line x1="60" y1="958" x2="96" y2="958" stroke="#dc2626" stroke-width="3"/><text x="106" y="964" font-family="STIX Two Text, serif" font-size="15">circle contact</text>
+<line x1="280" y1="958" x2="316" y2="958" stroke="#f59e0b" stroke-width="3" stroke-dasharray="7 5"/><text x="326" y="964" font-family="STIX Two Text, serif" font-size="15">wall contact</text>
 </svg>

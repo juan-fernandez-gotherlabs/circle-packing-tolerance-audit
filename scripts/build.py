@@ -19,6 +19,14 @@ from xml.sax.saxutils import escape
 ROOT = Path(__file__).resolve().parents[1]
 AUDIT = ROOT / "data/leaderboard_audit.json"
 EXACT = ROOT / "data/certificates/exact.csv"
+CERTIFICATES = {
+    "0": EXACT,
+    "1e-10": ROOT / "data/certificates/tolerance_1e-10.csv",
+    "1e-6": ROOT / "data/certificates/tolerance_1e-6.csv",
+}
+PUBLIC_CORPUS = ROOT / "results/public_corpus_audit.json"
+VERIFICATION = ROOT / "results/verification.json"
+LOCAL_OPTIMUM = ROOT / "results/local_optimum_interval.json"
 PRIMARY_CANDIDATES = {
     "0": "Nuestro certificado exacto",
     "1e-10": "Nuestro candidato 1e-10",
@@ -139,8 +147,8 @@ def generate_table() -> Path:
     return target
 
 
-def _certificate_rows():
-    with EXACT.open(newline="", encoding="utf-8") as handle:
+def _certificate_rows(path: Path = EXACT):
+    with path.open(newline="", encoding="utf-8") as handle:
         return [
             (Decimal(row["x"]), Decimal(row["y"]), Decimal(row["radius"]))
             for row in csv.DictReader(handle)
@@ -195,20 +203,146 @@ def generate_visualization() -> Path:
     for x, y, radius in rows:
         cx, cy = screen(x, y)
         parts.append(f'<circle cx="{cx:.6f}" cy="{cy:.6f}" r="{float(radius) * scale:.6f}"/>')
-    parts.extend(["</g>", '<g id="labels" fill="#0f172a" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" text-anchor="middle" dominant-baseline="central">'])
+    parts.extend(["</g>", '<g id="labels" fill="#0f172a" font-family="STIX Two Text, serif" font-size="13" text-anchor="middle" dominant-baseline="central">'])
     for i, (x, y, _) in enumerate(rows):
         cx, cy = screen(x, y)
         parts.append(f'<text x="{cx:.6f}" y="{cy:.6f}">{escape(str(i))}</text>')
     parts.extend(
         [
             "</g>",
-            f'<text x="{pad}" y="{size + 32}" font-family="system-ui, sans-serif" font-size="18" fill="#111827">n=26 exact finite-decimal certificate — 58 pair contacts + 20 wall contacts</text>',
-            f'<line x1="{pad}" y1="{size + 58}" x2="{pad + 36}" y2="{size + 58}" stroke="#dc2626" stroke-width="3"/><text x="{pad + 46}" y="{size + 64}" font-family="system-ui, sans-serif" font-size="15">circle contact</text>',
-            f'<line x1="{pad + 220}" y1="{size + 58}" x2="{pad + 256}" y2="{size + 58}" stroke="#f59e0b" stroke-width="3" stroke-dasharray="7 5"/><text x="{pad + 266}" y="{size + 64}" font-family="system-ui, sans-serif" font-size="15">wall contact</text>',
+            f'<text x="{pad}" y="{size + 32}" font-family="STIX Two Text, serif" font-size="18" fill="#111827">n=26 exact finite-decimal certificate — 58 pair contacts + 20 wall contacts</text>',
+            f'<line x1="{pad}" y1="{size + 58}" x2="{pad + 36}" y2="{size + 58}" stroke="#dc2626" stroke-width="3"/><text x="{pad + 46}" y="{size + 64}" font-family="STIX Two Text, serif" font-size="15">circle contact</text>',
+            f'<line x1="{pad + 220}" y1="{size + 58}" x2="{pad + 256}" y2="{size + 58}" stroke="#f59e0b" stroke-width="3" stroke-dasharray="7 5"/><text x="{pad + 266}" y="{size + 64}" font-family="STIX Two Text, serif" font-size="15">wall contact</text>',
             "</svg>",
         ]
     )
     target = ROOT / "figures/exact_packing_contact_graph.svg"
+    target.write_text("\n".join(parts) + "\n", encoding="utf-8")
+    return target
+
+
+def generate_tolerance_visualization() -> Path:
+    """Render the three serialized contracts at a common geometric scale."""
+    width, height = 1200, 365
+    panel, top, gap = 320, 38, 70
+    lefts = [50, 50 + panel + gap, 50 + 2 * (panel + gap)]
+    labels = {
+        "0": "(a) exact rational",
+        "1e-10": "(b) tau = 1e-10",
+        "1e-6": "(c) tau = 1e-6",
+    }
+    fills = {"0": "#2563eb", "1e-10": "#7c3aed", "1e-6": "#db2777"}
+    parts = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" role="img" aria-labelledby="title desc">',
+        '<title id="title">Three tolerance-separated n=26 certificates</title>',
+        '<desc id="desc">The exact, ten-to-the-minus-ten, and ten-to-the-minus-six serialized circle packings shown at one common scale.</desc>',
+        '<rect width="100%" height="100%" fill="#ffffff"/>',
+    ]
+    for left, contract in zip(lefts, ("0", "1e-10", "1e-6")):
+        rows = _certificate_rows(CERTIFICATES[contract])
+        title = labels[contract]
+        parts.extend(
+            [
+                f'<text x="{left + panel / 2:.1f}" y="24" text-anchor="middle" font-family="STIX Two Text, serif" font-size="21" font-weight="600" fill="#111827">{title}</text>',
+                f'<rect x="{left}" y="{top}" width="{panel}" height="{panel}" fill="#fbfdff" stroke="#111827" stroke-width="2.5"/>',
+                f'<g fill="{fills[contract]}" fill-opacity="0.20" stroke="{fills[contract]}" stroke-width="1.4">',
+            ]
+        )
+        for x, y, radius in rows:
+            cx = left + float(x) * panel
+            cy = top + (1 - float(y)) * panel
+            parts.append(
+                f'<circle cx="{cx:.6f}" cy="{cy:.6f}" r="{float(radius) * panel:.6f}"/>'
+            )
+        parts.append("</g>")
+    parts.append("</svg>")
+    target = ROOT / "figures/tolerance_certificates.svg"
+    target.write_text("\n".join(parts) + "\n", encoding="utf-8")
+    return target
+
+
+def generate_tolerance_rankings() -> Path:
+    """Render three independent, contract-matched top-five rankings."""
+    public = json.loads(PUBLIC_CORPUS.read_text(encoding="utf-8"))
+    aliases = {
+        "Author exact certificate": "Göther Labs",
+        "Author 1e-10 certificate": "Göther Labs",
+        "Author 1e-6 certificate": "Göther Labs",
+        "AlphaEvolve v2": "AlphaEvolve v2",
+        "Theta corpus: AlphaEvolve": "Theta AlphaEvolve",
+        "Theta corpus: 8B-w_RL@65": "Theta 8B-RL",
+        "Theta corpus: 8B-w_RL@65-Formal": "Theta 8B-RL Formal",
+        "Theta corpus: ShinkaEvolve": "ShinkaEvolve",
+        "Packomania csqv26": "Packomania",
+        "Jason Liang csqv26": "Jason Liang",
+    }
+
+    def score_parts(value: str) -> tuple[str, str]:
+        integer, fractional = value.split(".", 1)
+        if len(fractional) > 17:
+            fractional = fractional[:17] + "..."
+        return integer, fractional
+
+    width, height = 1000, 720
+    panel_left = 10
+    panel_width = 980
+    panel_tops = (10, 238, 466)
+    panel_titles = {
+        "0": "(a) τ = 0",
+        "1e-10": "(b) τ = 1e-10",
+        "1e-6": "(c) τ = 1e-6",
+    }
+    parts = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" role="img" aria-labelledby="title desc">',
+        '<title id="title">Three tolerance-separated rankings</title>',
+        '<desc id="desc">Three independent top-five tables. Every witness in a panel passes the same exact-rational tolerance contract. The Göther Labs row is highlighted.</desc>',
+        '<rect width="100%" height="100%" fill="#ffffff"/>',
+    ]
+
+    for contract, top in zip(("0", "1e-10", "1e-6"), panel_tops):
+        rows = public["rankings"][contract][:5]
+        parts.extend(
+            [
+                f'<g data-contract="{contract}">',
+                f'<rect x="{panel_left}" y="{top}" width="{panel_width}" height="214" rx="10" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>',
+                f'<text x="{panel_left + 24}" y="{top + 34}" font-family="STIX Two Text, serif" font-size="25" font-weight="700" fill="#111827">{panel_titles[contract]}</text>',
+                f'<text x="{panel_left + 190}" y="{top + 34}" font-family="STIX Two Text, serif" font-size="17" fill="#475569">five leading witnesses under one common exact-rational contract</text>',
+                f'<rect x="{panel_left + 1}" y="{top + 66}" width="{panel_width - 2}" height="30" fill="#f1f5f9"/>',
+                f'<text x="{panel_left + 40}" y="{top + 87}" text-anchor="middle" font-family="STIX Two Text, serif" font-size="16" font-weight="600" fill="#334155">Pos.</text>',
+                f'<text x="{panel_left + 100}" y="{top + 87}" font-family="STIX Two Text, serif" font-size="16" font-weight="600" fill="#334155">Witness</text>',
+                f'<text x="{panel_left + 825}" y="{top + 87}" text-anchor="middle" font-family="STIX Two Text, serif" font-size="16" font-weight="600" fill="#334155">Recomputed score</text>',
+            ]
+        )
+        for index, row in enumerate(rows):
+            y_top = top + 96 + index * 22
+            y_text = y_top + 17
+            author = row["source_id"] == "this_repository"
+            fill = "#fff1f2" if author else ("#ffffff" if index % 2 == 0 else "#f8fafc")
+            color = "#b91c1c" if author else "#0f172a"
+            integer, fractional = score_parts(row["score"])
+            label = aliases.get(row["name"], row["name"])
+            parts.extend(
+                [
+                    f'<g data-rank="{row["position"]}" data-source="{escape(row["source_id"])}" data-score="{escape(row["score"])}">',
+                    f'<rect x="{panel_left + 1}" y="{y_top}" width="{panel_width - 2}" height="22" fill="{fill}"/>',
+                    f'<line x1="{panel_left + 1}" y1="{y_top}" x2="{panel_left + panel_width - 1}" y2="{y_top}" stroke="#e2e8f0"/>',
+                    f'<text x="{panel_left + 40}" y="{y_text}" text-anchor="middle" font-family="STIX Two Text, serif" font-size="18" font-weight="{700 if author else 400}" fill="{color}">{row["position"]}</text>',
+                    f'<text x="{panel_left + 100}" y="{y_text}" font-family="STIX Two Text, serif" font-size="18" font-weight="{700 if author else 400}" fill="{color}">{escape(label)}</text>',
+                    f'<text x="{panel_left + 730}" y="{y_text}" text-anchor="end" font-family="STIX Two Text, serif" font-size="18" font-variant-numeric="tabular-nums" fill="{color}">{integer}</text>',
+                    f'<text x="{panel_left + 731}" y="{y_text}" text-anchor="start" font-family="STIX Two Text, serif" font-size="18" font-variant-numeric="tabular-nums" fill="{color}">.{fractional}</text>',
+                    '</g>',
+                ]
+            )
+        parts.append('</g>')
+    parts.extend(
+        [
+            '<rect x="10" y="696" width="18" height="18" rx="3" fill="#fff1f2" stroke="#fecdd3"/><text x="38" y="710" font-family="STIX Two Text, serif" font-size="16" fill="#475569">Göther Labs; compare positions only within the same panel. Other author contracts are excluded.</text>',
+            "</svg>",
+        ]
+    )
+    target = ROOT / "figures/tolerance_rankings.svg"
     target.write_text("\n".join(parts) + "\n", encoding="utf-8")
     return target
 
@@ -314,7 +448,12 @@ def package_evidence(
 
 
 def generate_all() -> list[Path]:
-    outputs = [generate_table(), generate_visualization()]
+    outputs = [
+        generate_table(),
+        generate_visualization(),
+        generate_tolerance_visualization(),
+        generate_tolerance_rankings(),
+    ]
     outputs.append(generate_manifest())
     return outputs
 

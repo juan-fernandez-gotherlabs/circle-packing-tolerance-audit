@@ -1,0 +1,164 @@
+{
+  "schema_version": 1,
+  "snapshot_date": "2026-08-08",
+  "problem": "26 variable-radius circles in the unit square",
+  "contracts": [
+    "0",
+    "1e-10",
+    "1e-6"
+  ],
+  "policy": {
+    "payload_storage": "Downloaded payloads are hash-checked in ignored work/ storage and are not redistributed by this repository.",
+    "parsing": "Third-party Python and notebook files are parsed as data and never imported or executed.",
+    "ranking": "Only complete 26-circle witnesses are ranked, under one common exact-rational contract at a time.",
+    "mutable_sources": "A mutable source must match its observed SHA-256 or acquisition fails unless --allow-mutable-drift is explicitly supplied."
+  },
+  "sources": [
+    {
+      "id": "alphaevolve_v2",
+      "project": "AlphaEvolve",
+      "kind": "witness",
+      "parser": "alphaevolve_notebook",
+      "artifact_filename": "alphaevolve_v2.ipynb",
+      "repository": "https://github.com/google-deepmind/alphaevolve_repository_of_problems",
+      "commit": "8f447457957deac61e28bf1676746f0753b3b2f8",
+      "artifact_path": "experiments/packing_circles_max_sum_of_radii/packing_circles_max_sum_of_radii.ipynb",
+      "url": "https://raw.githubusercontent.com/google-deepmind/alphaevolve_repository_of_problems/8f447457957deac61e28bf1676746f0753b3b2f8/experiments/packing_circles_max_sum_of_radii/packing_circles_max_sum_of_radii.ipynb",
+      "sha256": "e7a304378a5ca80c74f94f5060a9f5db953767af850834513fd797e3306a935e",
+      "immutable": true,
+      "license": "Apache-2.0",
+      "native_evaluator": "alphaevolve_binary64_zero"
+    },
+    {
+      "id": "thetaevolve",
+      "project": "ThetaEvolve",
+      "kind": "witness",
+      "parser": "theta_json",
+      "include_names": [
+        "AlphaEvolve",
+        "8B-w_RL@65",
+        "8B-w_RL@65-Formal",
+        "ShinkaEvolve"
+      ],
+      "artifact_filename": "thetaevolve_data.json",
+      "repository": "https://github.com/ypwang61/ThetaEvolve",
+      "commit": "7c12898f5d7627af403e3aca643af76199fb5c20",
+      "artifact_path": "Results/CirclePacking/data.json",
+      "url": "https://raw.githubusercontent.com/ypwang61/ThetaEvolve/7c12898f5d7627af403e3aca643af76199fb5c20/Results/CirclePacking/data.json",
+      "sha256": "c20023f5a4d3e1408a7ec29ee043dea3c2b8d9711dd21c806008b5a48646e7b8",
+      "immutable": true,
+      "license": "Apache-2.0"
+    },
+    {
+      "id": "eurekagent",
+      "project": "EurekAgent",
+      "kind": "witness",
+      "parser": "eurek_jsonl",
+      "artifact_filename": "eurekagent_result.jsonl",
+      "repository": "https://github.com/THU-Team-Eureka/EurekAgent",
+      "commit": "38585790ff56e7993aec322e0179ded8b101d82c",
+      "artifact_path": "results/circle_packing/result.jsonl",
+      "url": "https://raw.githubusercontent.com/THU-Team-Eureka/EurekAgent/38585790ff56e7993aec322e0179ded8b101d82c/results/circle_packing/result.jsonl",
+      "sha256": "21304b7864de0cc4c5847a0d68c4823505472218f652c8abf8740f1508afca00",
+      "immutable": true,
+      "license": "AGPL-3.0-only",
+      "native_evaluator": "eurekagent_binary64_1e-6"
+    },
+    {
+      "id": "eurekagent_evaluator",
+      "project": "EurekAgent evaluator",
+      "kind": "support",
+      "artifact_filename": "eurekagent_evaluate.py",
+      "repository": "https://github.com/THU-Team-Eureka/EurekAgent",
+      "commit": "38585790ff56e7993aec322e0179ded8b101d82c",
+      "artifact_path": "examples/circle_packing/hidden_eval_dir/evaluate.py",
+      "url": "https://raw.githubusercontent.com/THU-Team-Eureka/EurekAgent/38585790ff56e7993aec322e0179ded8b101d82c/examples/circle_packing/hidden_eval_dir/evaluate.py",
+      "sha256": "f417007dd60c9781bb48a40468baa3552e3127ac0f447601f645a34da8d48fcd",
+      "immutable": true,
+      "license": "AGPL-3.0-only"
+    },
+    {
+      "id": "hyra",
+      "project": "Hyra",
+      "kind": "witness",
+      "parser": "hyra_json",
+      "artifact_filename": "hyra_n26.json",
+      "repository": "https://github.com/Tencent-Hunyuan/Hyra-results",
+      "commit": "26ebfbe7d491e6521d8bb5fc21fe88bb31460825",
+      "artifact_path": "AI4Science/packing_records/records/cirRsqu_n26.json",
+      "url": "https://raw.githubusercontent.com/Tencent-Hunyuan/Hyra-results/26ebfbe7d491e6521d8bb5fc21fe88bb31460825/AI4Science/packing_records/records/cirRsqu_n26.json",
+      "sha256": "c16d2472e9516005195cef7f1f0ed4e7c2e709544bcba5dfcbe52bc3d26ff50e",
+      "immutable": true,
+      "license": "Apache-2.0"
+    },
+    {
+      "id": "station",
+      "project": "Station",
+      "kind": "witness",
+      "parser": "station_python",
+      "artifact_filename": "station_sota.py",
+      "repository": "https://github.com/dualverse-ai/station",
+      "commit": "88f052eb1f4a16eb100315a6173852bb1226bcdb",
+      "artifact_path": "example/research_circle_n26/station_sota.py",
+      "url": "https://raw.githubusercontent.com/dualverse-ai/station/88f052eb1f4a16eb100315a6173852bb1226bcdb/example/research_circle_n26/station_sota.py",
+      "sha256": "6a118ae8a27249042b405c19386bd8a5cb4a3a924274187f01ee01c311e1bc1c",
+      "immutable": true,
+      "license": "Apache-2.0"
+    },
+    {
+      "id": "packomania",
+      "project": "Packomania",
+      "kind": "witness",
+      "parser": "packomania_txt",
+      "artifact_filename": "packomania_csqv26.txt",
+      "repository": "https://www.packomania.com/csqv/csqv.html",
+      "url": "https://www.packomania.com/csqv/txt/csqv26.txt",
+      "sha256": "d8dcaac26602229340fd95eda93858b7556ac745ef2a7834864cebd33d0116a4",
+      "immutable": false,
+      "observed_at": "2026-08-08",
+      "license": "NOASSERTION"
+    },
+    {
+      "id": "jason_liang",
+      "project": "Jason Liang public SOTA corpus",
+      "kind": "witness",
+      "parser": "csqv_pck",
+      "artifact_filename": "jason_csqv26.pck",
+      "repository": "https://github.com/jasonzliang/circle-packing-sota",
+      "commit": "c36af71dbe0b64aecfc29602b4f090f84903f205",
+      "artifact_path": "sota/ours/pck/csqv26.pck",
+      "url": "https://raw.githubusercontent.com/jasonzliang/circle-packing-sota/c36af71dbe0b64aecfc29602b4f090f84903f205/sota/ours/pck/csqv26.pck",
+      "sha256": "b28701f7bcf4ea0521e9c76b15d31081e775109e6eb00338670dfaa296dca135",
+      "immutable": true,
+      "license": "NOASSERTION"
+    },
+    {
+      "id": "alphaz_coral",
+      "project": "AlphaZ-CORAL",
+      "kind": "incomplete_program",
+      "artifact_filename": "alphaz_coral_best_program.py",
+      "repository": "https://github.com/Kurorz2004/alphaz-coral",
+      "commit": "3cd38221847e442d4b11822d2cf31646db2daa47",
+      "artifact_path": "task1/result/best_program.py",
+      "url": "https://raw.githubusercontent.com/Kurorz2004/alphaz-coral/3cd38221847e442d4b11822d2cf31646db2daa47/task1/result/best_program.py",
+      "sha256": "405c6bf6b30d64d9c8f531d6d9d171ff7d713635b3f27252d7fa057f1e9ffee4",
+      "immutable": true,
+      "license": "NOASSERTION",
+      "exclusion_reason": "Publishes 26 centers but derives radii by solving a linear program at runtime; it is not a serialized complete witness and is excluded from witness rankings."
+    }
+  ],
+  "claims_without_evaluable_witness": [
+    {
+      "project": "Numaro",
+      "url": "https://numaro.tech/research/circle-packing-unit-square-2026/",
+      "reported_score": "2.6359830853",
+      "reason": "No downloadable complete n=26 coordinate-and-radius witness was located in the public report."
+    },
+    {
+      "project": "HELIX",
+      "url": "https://arxiv.org/abs/2603.07642",
+      "reported_score": "2.6359830849",
+      "reason": "No downloadable complete n=26 coordinate-and-radius witness was located with the paper."
+    }
+  ]
+}
