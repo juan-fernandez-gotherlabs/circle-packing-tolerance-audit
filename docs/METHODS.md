@@ -82,11 +82,11 @@ layers select the highest-scoring distinct positive-multiplier configurations,
 deduplicating by contact set and by an isometry- and permutation-invariant
 geometry signature.
 
-The original ChatGPT sandbox did not provide `contact_flip.py` or its `.npz`
-seeds. The implementation here is a clean reconstruction, not a claim of
-bitwise recovery. A complete rerun reproduced all 78 released contacts and all
-23 historical local-maximum classifications; the largest endpoint-score
-difference was `3.311217966484037e-11`. See
+The original AI-assisted research session did not preserve `contact_flip.py`
+or its `.npz` seeds. The implementation here is a clean reconstruction, not a
+claim of bitwise recovery. A complete rerun reproduced all 78 released
+contacts and all 23 historical local-maximum classifications; the largest
+endpoint-score difference was `3.311217966484037e-11`. See
 `results/search_validation.json`.
 
 ## Reproducible public-corpus acquisition
@@ -152,13 +152,13 @@ are publicly recoverable and labels the remaining gaps.
 
 ## Provenance and evidence archive
 
-The three primary certificates and the historical files were recovered from
-the local ChatGPT conversation “Mejorar resultado matemático”
+The three primary certificates and the historical files were recovered from a
+private Göther Labs AI-assisted research session
 (`6a6b0f23-f53c-83eb-8a83-b3d4cdaa383d`). The verified original bundle hash
 was `58b10f73a53cd1342f1b68d0bc717c69e8859b5a701fb6b7cf88bfdf664eba02`.
 This is author-declared provenance: an external reviewer cannot authenticate
-the private conversation from this public repository. Public certificate
-validity does not depend on accepting that provenance claim.
+the private session from this public repository. Public certificate validity
+does not depend on accepting that provenance claim.
 
 Bulky historical outputs, original model explanations, original programs, and
 the 78 regenerated seeds and traces are kept out of the reviewer-facing tree.
@@ -205,9 +205,10 @@ identifiers are retained. These license observations are not legal advice.
 
 ## AI assistance disclosure
 
-ChatGPT performed much of the exploratory computation and generated the
-original artifacts. Codex recovered, organized, independently checked, and
-reimplemented missing reproducibility components. Human authors remain
-responsible for every claim, interpretation, and submission. An AI system must
-not be listed as an author; venue-specific disclosure requirements still
-apply.
+This work used a Göther Labs AI-assisted research pipeline. Internally
+coordinated agents contributed to exploratory computation, generation and
+recovery of artifacts, software implementation, verification, and drafting.
+Every public claim is backed by inspectable certificates and reproducible
+checks; the human author remains responsible for every claim, interpretation,
+and submission. No AI system is an author, and venue-specific disclosure
+requirements still apply.

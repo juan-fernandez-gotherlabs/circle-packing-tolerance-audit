@@ -1,15 +1,17 @@
 # Circle packing n=26: tolerance audit and exact certificate
 
-> **Release candidate for v1.2.0.** Its version-specific DOI is reserved as
-> [10.5281/zenodo.21864592](https://doi.org/10.5281/zenodo.21864592). The previous
-> public release, v1.1.0, remains preserved at
-> [10.5281/zenodo.21853178](https://doi.org/10.5281/zenodo.21853178); it predates
-> the interval certificate, reproducible public acquisition, and preprint added
-> here. The final v1.2.0 tag and Zenodo publication will use the exact commit
-> that passes the post-DOI release audit.
+> **Release candidate for v1.2.1.** This editorial release is the intended
+> current review and citation surface. It preserves the mathematical artifact
+> from [v1.2.0](https://github.com/juan-fernandez-gotherlabs/circle-packing-tolerance-audit/releases/tag/v1.2.0)
+> while using a provider-neutral description of the Göther Labs AI-assisted
+> research process. Version `v1.2.0` remains historically available at
+> [DOI 10.5281/zenodo.21864592](https://doi.org/10.5281/zenodo.21864592).
 
-Reproducible certificates for placing 26 variable-radius circles in the unit
-square while maximizing the sum of their radii.
+This repository audits public witnesses for placing 26 variable-radius circles
+in the unit square while maximizing the sum of their radii. It keeps three
+feasibility tolerances separate, re-evaluates them with exact rational
+arithmetic, and supplies a rational interval certificate for the strict local
+optimum near the zero-tolerance witness.
 
 | Contract | Recomputed score | Interpretation |
 | --- | ---: | --- |
@@ -209,13 +211,27 @@ acquisition payloads were not preserved. Our other two certificates are
 excluded from each comparison. Read `docs/METHODS.md` before citing these
 results.
 
+## AI-assisted research
+
+This work used a Göther Labs AI-assisted research pipeline. Internally
+coordinated agents contributed to exploratory computation, artifact recovery,
+implementation, verification, and drafting. Every public claim is backed by
+inspectable certificates and reproducible checks. The human author remains
+responsible for every claim, interpretation, and submission; no AI system is
+an author. The complete disclosure and provenance boundary are documented in
+`docs/METHODS.md`.
+
 ## Citation and license
 
-This tree prepares version `v1.2.0`, whose version-specific DOI is reserved as
-[DOI `10.5281/zenodo.21864592`](https://doi.org/10.5281/zenodo.21864592).
+This tree prepares version `v1.2.1` as the current review and citation surface.
+Its version-specific DOI will be inserted after the new Zenodo version is
+reserved and before the final tag is published. Version `v1.2.0` remains
+preserved under
+[DOI `10.5281/zenodo.21864592`](https://doi.org/10.5281/zenodo.21864592) and
+the immutable Git tag [`v1.2.0`](https://github.com/juan-fernandez-gotherlabs/circle-packing-tolerance-audit/releases/tag/v1.2.0).
 The historical `v1.1.0` artifact remains available under
 [DOI `10.5281/zenodo.21853178`](https://doi.org/10.5281/zenodo.21853178).
-Complete v1.2.0 citation metadata is in `CITATION.cff`.
+Provisional v1.2.1 citation metadata is in `CITATION.cff`.
 Repository-authored code is MIT
 licensed. External artifacts are not relicensed; `data/provenance.json`
 records their sources and redistribution status.

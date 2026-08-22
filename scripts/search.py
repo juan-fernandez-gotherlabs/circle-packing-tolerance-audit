@@ -4,7 +4,8 @@
 Layer 1 traces all 78 contacts of the exact root.  Later layers select the best
 distinct local maxima under an explicit, deterministic policy.  This makes the
 new search reproducible without claiming bitwise identity with the historical
-run, whose original ``.npz`` seeds were not attached to the ChatGPT response.
+run, whose original ``.npz`` seeds were not preserved by the AI-assisted
+research session.
 """
 
 from __future__ import annotations

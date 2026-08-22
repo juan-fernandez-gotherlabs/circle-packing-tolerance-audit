@@ -1,14 +1,14 @@
 {
   "generated_on": "2026-08-08",
   "status": "historical_observational_snapshot",
-  "verification_scope": "Public URLs, commits, and hashes below are externally checkable where supplied. The private ChatGPT conversation and exact EinsteinArena API payloads are author-declared and cannot be authenticated or reacquired from this repository.",
+  "verification_scope": "Public URLs, commits, and hashes below are externally checkable where supplied. The private Göther Labs AI-assisted research session and exact EinsteinArena API payloads are author-declared and cannot be authenticated or reacquired from this repository.",
   "entries": [
     {
       "candidate": "Nuestro certificado exacto",
       "audit_source_label": "data/certificates/exact.csv",
       "license_checked_on": "2026-08-08",
       "redistribution": "Included in data/ as the primary artifact.",
-      "upstream": "ChatGPT conversation 6a6b0f23-f53c-83eb-8a83-b3d4cdaa383d and recovered local artifacts",
+      "upstream": "Private Göther Labs AI-assisted research session 6a6b0f23-f53c-83eb-8a83-b3d4cdaa383d and recovered local artifacts",
       "license": "MIT for repository code; certificate data released with this repository"
     },
     {
@@ -16,7 +16,7 @@
       "audit_source_label": "data/certificates/tolerance_1e-10.csv",
       "license_checked_on": "2026-08-08",
       "redistribution": "Included in data/ as the primary artifact.",
-      "upstream": "ChatGPT conversation 6a6b0f23-f53c-83eb-8a83-b3d4cdaa383d and recovered local artifacts",
+      "upstream": "Private Göther Labs AI-assisted research session 6a6b0f23-f53c-83eb-8a83-b3d4cdaa383d and recovered local artifacts",
       "license": "MIT for repository code; certificate data released with this repository"
     },
     {
@@ -24,7 +24,7 @@
       "audit_source_label": "data/certificates/tolerance_1e-6.csv",
       "license_checked_on": "2026-08-08",
       "redistribution": "Included in data/ as the primary artifact.",
-      "upstream": "ChatGPT conversation 6a6b0f23-f53c-83eb-8a83-b3d4cdaa383d and recovered local artifacts",
+      "upstream": "Private Göther Labs AI-assisted research session 6a6b0f23-f53c-83eb-8a83-b3d4cdaa383d and recovered local artifacts",
       "license": "MIT for repository code; certificate data released with this repository"
     },
     {
