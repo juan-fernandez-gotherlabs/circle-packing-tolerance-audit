@@ -24,12 +24,31 @@ class BuildTests(unittest.TestCase):
         preprint = (
             ROOT / "preprint/circle_packing_n26_preprint.tex"
         ).read_text(encoding="utf-8")
-        current_doi = "10.5281/zenodo.21864592"
-        self.assertIn('version: "1.2.0"', citation)
-        self.assertIn("date-released: 2026-08-09", citation)
-        self.assertIn(f"doi: {current_doi}", citation)
+        previous_doi = "10.5281/zenodo.21864592"
+        current_doi = "10.5281/zenodo.22060172"
+        self.assertIn('version: "1.2.1"', citation)
+        self.assertIn("date-released: 2026-08-22", citation)
+        self.assertIn(f'doi: "{current_doi}"', citation)
         self.assertIn(current_doi, readme)
         self.assertIn(current_doi, preprint)
+        self.assertIn(previous_doi, readme)
+        self.assertIn(previous_doi, preprint)
+
+    def test_current_sources_use_provider_neutral_ai_disclosure(self):
+        public_sources = [
+            ROOT / "README.md",
+            ROOT / "data/provenance.json",
+            ROOT / "docs/METHODS.md",
+            ROOT / "preprint/circle_packing_n26_preprint.tex",
+            ROOT / "scripts/search.py",
+        ]
+        forbidden = ("chat" + "gpt", "co" + "dex")
+        combined = "\n".join(
+            path.read_text(encoding="utf-8").lower() for path in public_sources
+        )
+        for provider in forbidden:
+            self.assertNotIn(provider, combined)
+        self.assertIn("göther labs ai-assisted research pipeline", combined)
 
     def test_machine_readable_rankings_have_one_matching_author_certificate(self):
         audit = json.loads((ROOT / "data/leaderboard_audit.json").read_text())
