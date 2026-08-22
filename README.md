@@ -1,7 +1,9 @@
 # Circle packing n=26: tolerance audit and exact certificate
 
-> **Release candidate for v1.2.1.** This editorial release is the intended
-> current review and citation surface. It preserves the mathematical artifact
+> **Current artifact for review and citation:**
+> [v1.2.1](https://github.com/juan-fernandez-gotherlabs/circle-packing-tolerance-audit/releases/tag/v1.2.1),
+> archived at [DOI 10.5281/zenodo.22060172](https://doi.org/10.5281/zenodo.22060172).
+> This editorial release preserves the mathematical artifact
 > from [v1.2.0](https://github.com/juan-fernandez-gotherlabs/circle-packing-tolerance-audit/releases/tag/v1.2.0)
 > while using a provider-neutral description of the Göther Labs AI-assisted
 > research process. Version `v1.2.0` remains historically available at
@@ -223,15 +225,15 @@ an author. The complete disclosure and provenance boundary are documented in
 
 ## Citation and license
 
-This tree prepares version `v1.2.1` as the current review and citation surface.
-Its version-specific DOI will be inserted after the new Zenodo version is
-reserved and before the final tag is published. Version `v1.2.0` remains
-preserved under
+Version `v1.2.1` is the current review and citation surface, archived under
+[DOI `10.5281/zenodo.22060172`](https://doi.org/10.5281/zenodo.22060172) and
+the immutable Git tag [`v1.2.1`](https://github.com/juan-fernandez-gotherlabs/circle-packing-tolerance-audit/releases/tag/v1.2.1).
+Version `v1.2.0` remains preserved under
 [DOI `10.5281/zenodo.21864592`](https://doi.org/10.5281/zenodo.21864592) and
 the immutable Git tag [`v1.2.0`](https://github.com/juan-fernandez-gotherlabs/circle-packing-tolerance-audit/releases/tag/v1.2.0).
 The historical `v1.1.0` artifact remains available under
 [DOI `10.5281/zenodo.21853178`](https://doi.org/10.5281/zenodo.21853178).
-Provisional v1.2.1 citation metadata is in `CITATION.cff`.
+Complete v1.2.1 citation metadata is in `CITATION.cff`.
 Repository-authored code is MIT
 licensed. External artifacts are not relicensed; `data/provenance.json`
 records their sources and redistribution status.

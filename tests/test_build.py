@@ -25,9 +25,12 @@ class BuildTests(unittest.TestCase):
             ROOT / "preprint/circle_packing_n26_preprint.tex"
         ).read_text(encoding="utf-8")
         previous_doi = "10.5281/zenodo.21864592"
+        current_doi = "10.5281/zenodo.22060172"
         self.assertIn('version: "1.2.1"', citation)
         self.assertIn("date-released: 2026-08-22", citation)
-        self.assertNotIn("doi:", citation)
+        self.assertIn(f'doi: "{current_doi}"', citation)
+        self.assertIn(current_doi, readme)
+        self.assertIn(current_doi, preprint)
         self.assertIn(previous_doi, readme)
         self.assertIn(previous_doi, preprint)
 
